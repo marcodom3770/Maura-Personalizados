@@ -105,18 +105,20 @@
     }
     .nav-links a:hover { color: var(--deep-rose); }
 
-    .nav-cta {
-      background: linear-gradient(135deg, var(--rose), var(--deep-rose)) !important;
-      color: #fff !important;
+    .nav-admin {
+      background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+      color: #fff;
       padding: 9px 22px;
       border-radius: 50px;
-      font-weight: 600 !important;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
       box-shadow: 0 4px 18px rgba(200,79,124,0.38);
-      transition: transform 0.2s, box-shadow 0.2s !important;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .nav-cta:hover {
+    .nav-admin:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(200,79,124,0.48) !important;
+      box-shadow: 0 8px 28px rgba(200,79,124,0.48);
     }
 
     /* ── HERO ─────────────────────────────────────────── */
@@ -211,35 +213,17 @@
       font-size: 0.95rem;
       font-weight: 600;
       text-decoration: none;
+      border: none;
       box-shadow: 0 6px 26px rgba(200,79,124,0.42);
       transition: transform 0.2s, box-shadow 0.2s;
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      cursor: pointer;
     }
     .btn-primary:hover {
       transform: translateY(-3px);
       box-shadow: 0 14px 36px rgba(200,79,124,0.52);
-    }
-
-    .btn-secondary {
-      background: white;
-      color: var(--deep-rose);
-      border: 2px solid var(--blush);
-      padding: 14px 38px;
-      border-radius: 50px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .btn-secondary:hover {
-      background: var(--blush-light);
-      border-color: var(--rose);
-      transform: translateY(-3px);
     }
 
     /* ── CATEGORIAS ────────────────────────────────────── */
@@ -370,6 +354,7 @@
       transition: transform 0.3s, box-shadow 0.3s;
       display: flex;
       flex-direction: column;
+      position: relative;
     }
     .photo-card:hover {
       transform: translateY(-8px);
@@ -526,62 +511,6 @@
       margin-top: 4px;
     }
 
-    .contato-deco {
-      background: linear-gradient(135deg, var(--rose-white), var(--blush-light));
-      border-radius: 16px;
-      padding: 40px;
-      text-align: center;
-    }
-
-    .deco-box h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      color: var(--text-dark);
-      margin-bottom: 16px;
-      margin-top: 12px;
-    }
-
-    .deco-box p {
-      color: var(--text-mid);
-      margin-bottom: 28px;
-      font-size: 0.95rem;
-      line-height: 1.7;
-    }
-
-    .deco-features {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .deco-feature {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 500;
-      color: var(--text-dark);
-      font-size: 0.95rem;
-    }
-
-    .check {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 24px;
-      height: 24px;
-      background: var(--rose);
-      color: white;
-      border-radius: 50%;
-      font-weight: 700;
-      font-size: 0.8rem;
-    }
-
-    .big-emoji {
-      font-size: 2.4rem;
-      display: block;
-    }
-
     /* ── FOOTER ────────────────────────────────────────– */
     footer {
       position: relative;
@@ -664,20 +593,121 @@
       transform: scale(1.1);
     }
 
+    /* ── ADMIN MODAL ───────────────────────────────────── */
+    .admin-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 2100;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .admin-modal.open {
+      display: flex;
+    }
+
+    .admin-panel {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      position: relative;
+    }
+
+    .admin-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .admin-panel h2 {
+      margin-bottom: 24px;
+      color: var(--text-dark);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--text-dark);
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid var(--blush);
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--rose);
+      box-shadow: 0 0 0 3px rgba(232, 114, 154, 0.1);
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .loading.show {
+      display: block;
+    }
+
     @media (max-width: 768px) {
       nav { padding: 12px 20px; flex-direction: column; gap: 12px; }
       .nav-links { gap: 16px; }
-      .hero-btns { flex-direction: column; width: 100%; }
-      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+      #inicio { padding: 100px 20px 60px; }
       #categorias { padding: 50px 20px; }
       #galeria { padding: 50px 20px; }
       .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
       .photo-card img { height: 180px; }
       #contato { padding: 50px 20px; }
       .contact-btn { gap: 16px; padding: 18px; }
-      .cbtn-icon { font-size: 2rem; }
-      .cbtn-main { font-size: 0.95rem; }
       footer { padding: 30px 20px; }
+      .admin-panel { padding: 30px 20px; max-width: 90%; }
     }
   </style>
 </head>
@@ -694,6 +724,7 @@
     <li><a href="#galeria">Portfólio</a></li>
     <li><a href="#contato">Contato</a></li>
   </ul>
+  <button class="nav-admin" onclick="openAdminPanel()">⚙️ Admin</button>
 </nav>
 
 <!-- ── HERO ───────────────────────────────────────── -->
@@ -712,7 +743,6 @@
 
   <div class="hero-btns">
     <a href="#galeria" class="btn-primary">✨ Ver Portfólio</a>
-    <a href="#contato" class="btn-secondary">📞 Entrar em Contato</a>
   </div>
 </section>
 
@@ -765,42 +795,27 @@
   
   <div class="contact-wrapper fade-in">
     <div class="contact-btns">
-      <a href="https://wa.me/5511953827032?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20seus%20produtos%20personalizados!" target="_blank" class="contact-btn whatsapp">
+      <a href="https://wa.me/5511953827032?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20seus%20produtos%20personalizados!" target="_blank" class="contact-btn">
         <span class="cbtn-icon">💬</span>
         <div>
           <div class="cbtn-main">WhatsApp</div>
           <div class="cbtn-sub">(11) 95382-7032</div>
         </div>
       </a>
-      <a href="mailto:maurabq.mbq@gmail.com" class="contact-btn email">
+      <a href="mailto:maurabq.mbq@gmail.com" class="contact-btn">
         <span class="cbtn-icon">📧</span>
         <div>
           <div class="cbtn-main">E-mail</div>
-          <div class="cbtn-sub" style="color:var(--text-light)">maurabq.mbq@gmail.com</div>
+          <div class="cbtn-sub">maurabq.mbq@gmail.com</div>
         </div>
       </a>
-      <a href="https://instagram.com/MAURAPAPELARIAPERSONALIZADA" target="_blank" class="contact-btn instagram">
+      <a href="https://instagram.com/MAURAPAPELARIAPERSONALIZADA" target="_blank" class="contact-btn">
         <span class="cbtn-icon">📸</span>
         <div>
           <div class="cbtn-main">Instagram</div>
           <div class="cbtn-sub">@MAURAPAPELARIAPERSONALIZADA</div>
         </div>
       </a>
-    </div>
-
-    <div class="contato-deco fade-in">
-      <div class="deco-box">
-        <span class="big-emoji">🌸</span>
-        <h3>Por que nos escolher?</h3>
-        <p>Cada pedido é tratado com atenção especial — porque você merece algo verdadeiramente único.</p>
-        <div class="deco-features">
-          <div class="deco-feature"><span class="check">✓</span>100% personalizado</div>
-          <div class="deco-feature"><span class="check">✓</span>Feito com muito amor</div>
-          <div class="deco-feature"><span class="check">✓</span>Entrega rápida</div>
-          <div class="deco-feature"><span class="check">✓</span>Qualidade garantida</div>
-          <div class="deco-feature"><span class="check">✓</span>Atendimento humanizado</div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -819,51 +834,99 @@
 
 <!-- ── MODAL ──────────────────────────────────────── -->
 <div class="modal-overlay" id="modal" onclick="closeModal(event)">
-  <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')" aria-label="Fechar">✕</button>
+  <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">✕</button>
   <img class="modal-img" id="modal-img" src="" alt="Foto ampliada">
+</div>
+
+<!-- ── ADMIN MODAL ────────────────────────────────── -->
+<div class="admin-modal" id="admin-modal">
+  <div class="admin-panel">
+    <button class="admin-close" onclick="closeAdminPanel()">✕</button>
+    <h2>Painel Admin</h2>
+    
+    <div id="admin-login" style="display: block;">
+      <div class="form-group">
+        <label>Senha Admin:</label>
+        <input type="password" id="admin-password" placeholder="Digite a senha">
+      </div>
+      <button class="btn-submit" onclick="loginAdmin()">Entrar</button>
+    </div>
+
+    <div id="admin-content" style="display: none;">
+      <div class="form-group">
+        <label>Descrição:</label>
+        <input type="text" id="form-descricao" placeholder="Ex: Livro de Casamento">
+      </div>
+
+      <div class="form-group">
+        <label>Categoria:</label>
+        <select id="form-categoria">
+          <option value="">Escolha uma categoria</option>
+          <option value="Livros">📖 Livros</option>
+          <option value="Cadernos">📓 Cadernos</option>
+          <option value="Festas">🎉 Festas</option>
+          <option value="Bolos">🍰 Bolos</option>
+          <option value="Outros">🎁 Outros</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Upload de Foto:</label>
+        <input type="file" id="form-image" accept="image/*">
+      </div>
+
+      <button class="btn-submit" id="btn-submit" onclick="submitForm()">Adicionar Foto</button>
+
+      <div class="loading" id="loading">
+        <p>Enviando...</p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ── SCRIPTS ────────────────────────────────────– -->
 <script>
-  // ID da sua planilha Google Sheets
-  const SHEET_ID = '1NATEUBhCTeZT6i0tM459D6dwtLNo0VCvVkAEkXa0eAg';
-  
-  // 🔗 URL do seu Google Apps Script (obtenha em Deploy > Novo deployment > Web app)
-  // Cole aqui a URL que foi gerada quando você fez o deploy
-  const GAS_ENDPOINT = 'COLE_AQUI_A_URL_DO_APPS_SCRIPT';
+  // ═══════════════════════════════════════════════════════════
+  // 🔧 CONFIGURAÇÕES SUPABASE
+  // ═══════════════════════════════════════════════════════════
+  const SUPABASE_URL = 'https://afeklrnrcrvbocwykilb.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmZWtsbnJuY3J2Ym9jd3lraWxiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgwOTgxOTcsImV4cCI6MjEwMzY3NDE5N30.H9C0iBzxHULvyud8pJB1Uc7eg4Tzn-O4dBTbmvK1viA';
+  const ADMIN_PASSWORD = 'maura123'; // ⚠️ MUDE ISSO DEPOIS
+
+  var allFotos = [];
+  var currentCat = 'Todos';
+  var adminLoggedIn = false;
 
   // ─── 1. EMOJIS FLUTUANTES ─────────────────────────────────
   (function() {
-    var EMOJIS = ['✏️','📖','📝','🎂','🎀','🎁','🖊️','📚','🌸','🎊','🎉','🍰','✨','💕','🎈','🖍️','📓','💝','🌷','🎗️','🎪','🌺','🎀','📌'];
+    var EMOJIS = ['✏️','📖','📝','🎂','🎀','🎁','🖊️','📚','🌸','🎊','🎉','🍰','✨','💕','🎈','🖍️','📓','💝','🌷','🎗️','🎪','🌺'];
     var bg = document.getElementById('floating-bg');
 
     function spawn() {
-      var el        = document.createElement('span');
+      var el = document.createElement('span');
       el.classList.add('floating-emoji');
       el.textContent = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
 
-      var size     = (Math.random() * 20 + 15).toFixed(0);
+      var size = (Math.random() * 20 + 15).toFixed(0);
       var duration = (Math.random() * 22 + 14).toFixed(1);
-      var startX   = (Math.random() * 98).toFixed(1);
-      var sway     = ((Math.random() - 0.5) * 140).toFixed(0);
-      var rot      = ((Math.random() - 0.5) * 420).toFixed(0);
-      var op       = (Math.random() * 0.28 + 0.07).toFixed(2);
+      var startX = (Math.random() * 98).toFixed(1);
+      var sway = ((Math.random() - 0.5) * 140).toFixed(0);
+      var rot = ((Math.random() - 0.5) * 420).toFixed(0);
+      var op = (Math.random() * 0.28 + 0.07).toFixed(2);
 
       el.style.cssText = [
-        'font-size:'           + size     + 'px',
-        'left:'                + startX   + 'vw',
-        'animation-duration:'  + duration + 's',
-        'animation-delay:-'    + (Math.random() * parseFloat(duration)).toFixed(1) + 's',
+        'font-size:' + size + 'px',
+        'left:' + startX + 'vw',
+        'animation-duration:' + duration + 's',
+        'animation-delay:-' + (Math.random() * parseFloat(duration)).toFixed(1) + 's',
         'animation-fill-mode:both',
-        '--sway:'              + sway     + 'px',
-        '--rot:'               + rot      + 'deg',
-        '--op:'                + op
+        '--sway:' + sway + 'px',
+        '--rot:' + rot + 'deg',
+        '--op:' + op
       ].join(';');
 
       bg.appendChild(el);
-      setTimeout(function() {
-        if (el.parentNode) el.parentNode.removeChild(el);
-      }, (parseFloat(duration) + 3) * 1000);
+      setTimeout(() => el.parentNode && el.parentNode.removeChild(el), (parseFloat(duration) + 3) * 1000);
     }
 
     for (var i = 0; i < 30; i++) spawn();
@@ -884,26 +947,24 @@
       }
     });
   }, { threshold: 0.12 });
-  document.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  // ─── 4. GALERIA E FILTROS DINÂMICOS ───────────────────────
-  var allFotos   = [];
-  var currentCat = 'Todos';
-  var container  = document.getElementById('gallery-container');
+  // ─── 4. GALERIA E FILTROS ─────────────────────────────────
+  const container = document.getElementById('gallery-container');
 
   function buildFilters(fotos) {
     var tabsContainer = document.getElementById('filter-tabs');
     tabsContainer.innerHTML = '';
 
     var btnTodos = document.createElement('button');
-    btnTodos.className = 'filter-btn ' + (currentCat === 'Todos' ? 'active' : '');
+    btnTodos.className = 'filter-btn' + (currentCat === 'Todos' ? ' active' : '');
     btnTodos.dataset.cat = 'Todos';
     btnTodos.textContent = 'Todos';
     btnTodos.addEventListener('click', filterClick);
     tabsContainer.appendChild(btnTodos);
 
     var categorias = [];
-    fotos.forEach(function(f) {
+    fotos.forEach(f => {
       if (f.categoria && categorias.indexOf(f.categoria) === -1) {
         categorias.push(f.categoria);
       }
@@ -911,26 +972,22 @@
     categorias.sort();
 
     var emojiMap = {
-      'Livros': '📖 ',
-      'Cadernos': '📓 ',
-      'Festas': '🎉 ',
-      'Bolos': '🍰 ',
-      'Outros': '🎁 '
+      'Livros': '📖 ', 'Cadernos': '📓 ', 'Festas': '🎉 ',
+      'Bolos': '🍰 ', 'Outros': '🎁 '
     };
 
-    categorias.forEach(function(cat) {
+    categorias.forEach(cat => {
       var btn = document.createElement('button');
-      btn.className = 'filter-btn ' + (currentCat === cat ? 'active' : '');
+      btn.className = 'filter-btn' + (currentCat === cat ? ' active' : '');
       btn.dataset.cat = cat;
-      var prefix = emojiMap[cat] || '✨ ';
-      btn.textContent = prefix + cat;
+      btn.textContent = (emojiMap[cat] || '✨ ') + cat;
       btn.addEventListener('click', filterClick);
       tabsContainer.appendChild(btn);
     });
   }
 
   function filterClick(e) {
-    document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     e.currentTarget.classList.add('active');
     currentCat = e.currentTarget.dataset.cat;
     buildGallery(allFotos);
@@ -939,23 +996,22 @@
   function buildGallery(fotos) {
     var filtered = currentCat === 'Todos'
       ? fotos
-      : fotos.filter(function(f) { return f.categoria === currentCat; });
+      : fotos.filter(f => f.categoria === currentCat);
 
     if (!filtered || filtered.length === 0) {
       container.innerHTML = '<div class="empty-gallery">'
         + '<span class="big">📸</span>'
         + '<p>' + (fotos.length === 0
-            ? 'Em breve, nosso portfólio completo por aqui!<br><small style="color:var(--text-light)">Adicione fotos na planilha para aparecerem aqui.</small>'
+            ? 'Em breve, nosso portfólio completo por aqui!<br><small style="color:var(--text-light)">Use o painel admin para adicionar fotos.</small>'
             : 'Nenhuma foto nessa categoria ainda.')
         + '</p></div>';
       return;
     }
 
     var html = '<div class="gallery-grid">';
-    filtered.forEach(function(foto) {
-      var url = 'https://drive.google.com/thumbnail?id=' + foto.id + '&sz=w1000';
-      html += '<div class="photo-card fade-in" onclick="openModal(\'' + url + '\')">';
-      html += '  <img src="' + url + '" alt="' + foto.descricao + '" loading="lazy">';
+    filtered.forEach(foto => {
+      html += '<div class="photo-card fade-in" onclick="openModal(\'' + foto.imagem_url + '\')">';
+      html += '  <img src="' + foto.imagem_url + '" alt="' + foto.descricao + '" loading="lazy">';
       html += '  <div class="photo-overlay">';
       html += '    <div class="overlay-cat">' + foto.categoria + '</div>';
       html += '    <div class="overlay-name">' + foto.descricao + '</div>';
@@ -969,49 +1025,38 @@
     html += '</div>';
 
     container.innerHTML = html;
-    container.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
+    container.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   }
 
-  // Buscar fotos do Google Apps Script (como API endpoint)
-  function carregarFotos() {
-    // ⚠️ Verificar se o endpoint foi configurado
-    if (!GAS_ENDPOINT || GAS_ENDPOINT === 'COLE_AQUI_A_URL_DO_APPS_SCRIPT') {
-      container.innerHTML = '<div class="empty-gallery"><span class="big">⚙️</span>'
-        + '<p>❌ Endpoint do Google Apps Script não foi configurado.<br>'
-        + '<small style="color:var(--text-light)">Veja as instruções no código.</small></p></div>';
-      console.error('❌ GAS_ENDPOINT não foi definido. Cole a URL do deploy no código HTML.');
-      return;
-    }
-
-    fetch(GAS_ENDPOINT)
-      .then(function(response) {
-        if (!response.ok) throw new Error('Erro HTTP: ' + response.status);
-        return response.json();
-      })
-      .then(function(data) {
-        var fotos = Array.isArray(data) ? data : [];
-
-        if (fotos.length === 0) {
-          throw new Error('Nenhuma foto encontrada na planilha');
+  // ─── 5. CARREGAR FOTOS DO SUPABASE ───────────────────────
+  async function carregarFotos() {
+    try {
+      const response = await fetch(
+        SUPABASE_URL + '/rest/v1/fotos',
+        {
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY
+          }
         }
+      );
 
-        allFotos = fotos;
-        buildFilters(allFotos);
-        buildGallery(allFotos);
-        console.log('✅ Fotos carregadas com sucesso:', fotos.length);
-      })
-      .catch(function(error) {
-        console.error('❌ Erro ao carregar fotos:', error);
-        container.innerHTML = '<div class="empty-gallery"><span class="big">📸</span>'
-          + '<p>⚠️ Erro ao carregar as fotos.<br>'
-          + '<small style="color:var(--text-light)">Verifique se o Google Apps Script foi feito deploy corretamente.</small></p></div>';
-      });
+      if (!response.ok) throw new Error('Erro ao buscar fotos');
+
+      allFotos = await response.json();
+      buildFilters(allFotos);
+      buildGallery(allFotos);
+      console.log('✅ Fotos carregadas:', allFotos.length);
+    } catch (error) {
+      console.error('❌ Erro:', error);
+      container.innerHTML = '<div class="empty-gallery"><span class="big">📸</span>'
+        + '<p>Erro ao carregar fotos. Tente recarregar a página.</p></div>';
+    }
   }
 
-  // Carregar fotos ao iniciar
   carregarFotos();
 
-  // ─── 5. MODAL ──────────────────────────────────────────────
+  // ─── 6. MODAL ──────────────────────────────────────────────
   function openModal(url) {
     document.getElementById('modal-img').src = url;
     document.getElementById('modal').classList.add('open');
@@ -1023,9 +1068,116 @@
     }
   }
 
-  document.addEventListener('keydown', function(e) {
+  document.addEventListener('keydown', e => {
     if (e.key === 'Escape') document.getElementById('modal').classList.remove('open');
   });
+
+  // ─── 7. ADMIN PANEL ────────────────────────────────────────
+  function openAdminPanel() {
+    document.getElementById('admin-modal').classList.add('open');
+    document.getElementById('admin-login').style.display = 'block';
+    document.getElementById('admin-content').style.display = 'none';
+    adminLoggedIn = false;
+  }
+
+  function closeAdminPanel() {
+    document.getElementById('admin-modal').classList.remove('open');
+    adminLoggedIn = false;
+  }
+
+  function loginAdmin() {
+    const password = document.getElementById('admin-password').value;
+    if (password === ADMIN_PASSWORD) {
+      adminLoggedIn = true;
+      document.getElementById('admin-login').style.display = 'none';
+      document.getElementById('admin-content').style.display = 'block';
+    } else {
+      alert('Senha incorreta!');
+    }
+  }
+
+  async function submitForm() {
+    if (!adminLoggedIn) {
+      alert('Faça login primeiro!');
+      return;
+    }
+
+    const descricao = document.getElementById('form-descricao').value;
+    const categoria = document.getElementById('form-categoria').value;
+    const imageFile = document.getElementById('form-image').files[0];
+
+    if (!descricao || !categoria || !imageFile) {
+      alert('Preencha todos os campos!');
+      return;
+    }
+
+    document.getElementById('loading').classList.add('show');
+    document.getElementById('btn-submit').disabled = true;
+
+    try {
+      // 1. Upload da imagem
+      const formData = new FormData();
+      formData.append('file', imageFile);
+
+      const timestamp = Date.now();
+      const filename = `${timestamp}-${imageFile.name}`;
+
+      const uploadResponse = await fetch(
+        SUPABASE_URL + '/storage/v1/object/fotos-papelaria/' + filename,
+        {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY
+          },
+          body: imageFile
+        }
+      );
+
+      if (!uploadResponse.ok) throw new Error('Erro ao fazer upload');
+
+      const imageUrl = SUPABASE_URL + '/storage/v1/object/public/fotos-papelaria/' + filename;
+
+      // 2. Adicionar à tabela
+      const insertResponse = await fetch(
+        SUPABASE_URL + '/rest/v1/fotos',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY
+          },
+          body: JSON.stringify({
+            descricao: descricao,
+            categoria: categoria,
+            imagem_url: imageUrl
+          })
+        }
+      );
+
+      if (!insertResponse.ok) throw new Error('Erro ao salvar na base de dados');
+
+      alert('✅ Foto adicionada com sucesso!');
+      
+      // Limpar formulário
+      document.getElementById('form-descricao').value = '';
+      document.getElementById('form-categoria').value = '';
+      document.getElementById('form-image').value = '';
+
+      // Recarregar galeria
+      await carregarFotos();
+
+      // Fechar painel
+      closeAdminPanel();
+    } catch (error) {
+      console.error('❌ Erro:', error);
+      alert('❌ Erro ao adicionar foto: ' + error.message);
+    } finally {
+      document.getElementById('loading').classList.remove('show');
+      document.getElementById('btn-submit').disabled = false;
+    }
+  }
 </script>
 
 </body>
