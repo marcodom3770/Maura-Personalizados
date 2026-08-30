@@ -827,6 +827,10 @@
 <script>
   // ID da sua planilha Google Sheets
   const SHEET_ID = '1NATEUBhCTeZT6i0tM459D6dwtLNo0VCvVkAEkXa0eAg';
+  
+  // 🔗 URL do seu Google Apps Script (obtenha em Deploy > Novo deployment > Web app)
+  // Cole aqui a URL que foi gerada quando você fez o deploy
+  const GAS_ENDPOINT = 'COLE_AQUI_A_URL_DO_APPS_SCRIPT';
 
   // ─── 1. EMOJIS FLUTUANTES ─────────────────────────────────
   (function() {
@@ -968,42 +972,39 @@
     container.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
   }
 
-  // Buscar fotos da Google Sheets API
+  // Buscar fotos do Google Apps Script (como API endpoint)
   function carregarFotos() {
-    var apiKey = 'AIzaSyDEXHCUMqNZVdJh-MjvLvOJhBbQxNfYVu4'; // Chave pública (restrita a leitura)
-    var range = 'Sheet1!A2:C'; // Começa da linha 2 (ignora cabeçalho)
-    var url = 'https://sheets.googleapis.com/v4/spreadsheets/' + SHEET_ID + '/values/' + range + '?key=' + apiKey;
+    // ⚠️ Verificar se o endpoint foi configurado
+    if (!GAS_ENDPOINT || GAS_ENDPOINT === 'COLE_AQUI_A_URL_DO_APPS_SCRIPT') {
+      container.innerHTML = '<div class="empty-gallery"><span class="big">⚙️</span>'
+        + '<p>❌ Endpoint do Google Apps Script não foi configurado.<br>'
+        + '<small style="color:var(--text-light)">Veja as instruções no código.</small></p></div>';
+      console.error('❌ GAS_ENDPOINT não foi definido. Cole a URL do deploy no código HTML.');
+      return;
+    }
 
-    fetch(url)
+    fetch(GAS_ENDPOINT)
       .then(function(response) {
-        if (!response.ok) throw new Error('Erro ao carregar planilha');
+        if (!response.ok) throw new Error('Erro HTTP: ' + response.status);
         return response.json();
       })
       .then(function(data) {
-        var fotos = [];
-        if (data.values) {
-          data.values.forEach(function(row) {
-            var descricao = row[0] || '';
-            var idFoto = row[1] || '';
-            var categoria = row[2] || 'Outros';
+        var fotos = Array.isArray(data) ? data : [];
 
-            if (descricao && idFoto) {
-              fotos.push({
-                descricao: String(descricao).trim(),
-                id: String(idFoto).trim(),
-                categoria: String(categoria).trim()
-              });
-            }
-          });
+        if (fotos.length === 0) {
+          throw new Error('Nenhuma foto encontrada na planilha');
         }
+
         allFotos = fotos;
         buildFilters(allFotos);
         buildGallery(allFotos);
+        console.log('✅ Fotos carregadas com sucesso:', fotos.length);
       })
       .catch(function(error) {
-        console.error('Erro:', error);
+        console.error('❌ Erro ao carregar fotos:', error);
         container.innerHTML = '<div class="empty-gallery"><span class="big">📸</span>'
-          + '<p>Em breve as fotos do portfólio estarão aqui!</p></div>';
+          + '<p>⚠️ Erro ao carregar as fotos.<br>'
+          + '<small style="color:var(--text-light)">Verifique se o Google Apps Script foi feito deploy corretamente.</small></p></div>';
       });
   }
 
