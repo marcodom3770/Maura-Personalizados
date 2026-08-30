@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>✨ Personalizados com Amor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:wght@300;400;500;600&family=Dancing+Script:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rose-white  : #FFF0F5;
+      --blush-light : #FFE4EE;
+      --blush       : #FFB6C8;
+      --rose        : #E8729A;
+      --deep-rose   : #C94F7C;
+      --berry       : #A33060;
+      --text-dark   : #3A1525;
+      --text-mid    : #7A3D58;
+      --text-light  : #B8789A;
+      --card-bg     : rgba(255,255,255,0.88);
+      --shadow-soft : 0 8px 32px rgba(200,79,124,0.12);
+      --shadow-hover: 0 18px 52px rgba(200,79,124,0.22);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--rose-white);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ── FLOATING BG ──────────────────────────────────── */
+    #floating-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .floating-emoji {
+      position: absolute;
+      bottom: -70px;
+      animation: floatUp linear;
+      pointer-events: none;
+      user-select: none;
+      line-height: 1;
+      will-change: transform, opacity;
+    }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(0)   rotate(0deg)        translateX(0px);         opacity: 0; }
+      8%   { opacity: var(--op); }
+      92%  { opacity: var(--op); }
+      100% { transform: translateY(calc(-100vh - 80px)) rotate(var(--rot)) translateX(var(--sway)); opacity: 0; }
+    }
+
+    /* ── NAV ──────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 40px;
+      background: rgba(255,240,245,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,182,200,0.35);
+      transition: box-shadow 0.3s;
+    }
+
+    nav.scrolled { box-shadow: 0 4px 24px rgba(200,79,124,0.13); }
+
+    .nav-logo {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--deep-rose);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 26px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--deep-rose); }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--rose), var(--deep-rose)) !important;
+      color: #fff !important;
+      padding: 9px 22px;
+      border-radius: 50px;
+      font-weight: 600 !important;
+      box-shadow: 0 4px 18px rgba(200,79,124,0.38);
+      transition: transform 0.2s, box-shadow 0.2s !important;
+    }
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(200,79,124,0.48) !important;
+    }
+
+    /* ── HERO ─────────────────────────────────────────── */
+    #inicio {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 130px 24px 90px;
+      background: linear-gradient(160deg, #FFF0F5 0%, #FFE4EE 45%, #FFF7FA 100%);
+    }
+
+    .hero-eyebrow {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.35rem;
+      color: var(--rose);
+      margin-bottom: 14px;
+      letter-spacing: 0.03em;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5.6rem);
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--deep-rose);
+    }
+
+    .hero-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.05rem, 2.4vw, 1.45rem);
+      font-style: italic;
+      color: var(--text-mid);
+      margin-bottom: 28px;
+      max-width: 560px;
+    }
+
+    .hero-desc {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 40px;
+      font-weight: 300;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 48px;
+    }
+
+    .badge {
+      background: white;
+      border: 1.5px solid var(--blush);
+      color: var(--text-mid);
+      padding: 7px 18px;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      box-shadow: 0 2px 14px rgba(200,79,124,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(200,79,124,0.16);
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+      color: white;
+      padding: 15px 38px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 6px 26px rgba(200,79,124,0.42);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 36px rgba(200,79,124,0.52);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--deep-rose);
+      border: 2px solid var(--blush);
+      padding: 14px 38px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-secondary:hover {
+      background: var(--blush-light);
+      border-color: var(--rose);
+      transform: translateY(-3px);
+    }
+
+    /* ── CATEGORIAS ────────────────────────────────────── */
+    #categorias {
+      position: relative;
+      z-index: 1;
+      padding: 80px 24px;
+      background: white;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 28px;
+    }
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-light);
+      font-size: 1rem;
+      margin-bottom: 50px;
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .categorias-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .cat-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: var(--shadow-soft);
+      border: 2px solid transparent;
+    }
+    .cat-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--blush);
+    }
+
+    .cat-icon {
+      font-size: 2.8rem;
+      margin-bottom: 12px;
+    }
+
+    .cat-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .cat-desc {
+      font-size: 0.88rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    /* ── GALERIA ───────────────────────────────────────── */
+    #galeria {
+      position: relative;
+      z-index: 1;
+      padding: 80px 24px;
+      background: linear-gradient(180deg, #FFF0F5 0%, white 50%, #FFF0F5 100%);
+    }
+
+    #filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 50px;
+    }
+
+    .filter-btn {
+      background: white;
+      color: var(--text-mid);
+      border: 2px solid var(--blush);
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 2px 12px rgba(200,79,124,0.08);
+    }
+    .filter-btn:hover {
+      border-color: var(--rose);
+      color: var(--rose);
+    }
+    .filter-btn.active {
+      background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 6px 24px rgba(200,79,124,0.3);
+    }
+
+    #gallery-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 22px;
+    }
+
+    .photo-card {
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      background: white;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .photo-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(201,79,124,0.88);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .photo-card:hover .photo-overlay {
+      opacity: 1;
+    }
+
+    .overlay-cat {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .overlay-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .photo-info {
+      padding: 14px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .photo-info h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .cat-chip {
+      display: inline-block;
+      background: var(--blush-light);
+      color: var(--rose);
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      width: fit-content;
+    }
+
+    .empty-gallery {
+      text-align: center;
+      padding: 60px 24px;
+      color: var(--text-light);
+    }
+
+    .empty-gallery .big {
+      font-size: 3.5rem;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .empty-gallery p {
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    /* ── FADE IN ───────────────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── CONTATO ───────────────────────────────────────– */
+    #contato {
+      position: relative;
+      z-index: 1;
+      padding: 80px 24px;
+      background: white;
+    }
+
+    .contact-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .contact-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 60px;
+    }
+
+    .contact-btn {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 24px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text-dark);
+      box-shadow: var(--shadow-soft);
+      transition: all 0.3s;
+      border: 2px solid transparent;
+    }
+    .contact-btn:hover {
+      transform: translateX(8px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--blush);
+    }
+
+    .cbtn-icon {
+      font-size: 2.2rem;
+      flex-shrink: 0;
+    }
+
+    .cbtn-main {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-dark);
+    }
+
+    .cbtn-sub {
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      margin-top: 4px;
+    }
+
+    .contato-deco {
+      background: linear-gradient(135deg, var(--rose-white), var(--blush-light));
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .deco-box h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+      margin-top: 12px;
+    }
+
+    .deco-box p {
+      color: var(--text-mid);
+      margin-bottom: 28px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .deco-features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .deco-feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      color: var(--text-dark);
+      font-size: 0.95rem;
+    }
+
+    .check {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: var(--rose);
+      color: white;
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    .big-emoji {
+      font-size: 2.4rem;
+      display: block;
+    }
+
+    /* ── FOOTER ────────────────────────────────────────– */
+    footer {
+      position: relative;
+      z-index: 1;
+      background: var(--text-dark);
+      color: white;
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      display: block;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      font-size: 0.9rem;
+    }
+
+    .footer-links a {
+      color: #FFB6C8;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: white; }
+
+    footer p {
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+
+    /* ── MODAL ─────────────────────────────────────────– */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      background: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    }
+    .modal-close:hover {
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 12px 20px; flex-direction: column; gap: 12px; }
+      .nav-links { gap: 16px; }
+      .hero-btns { flex-direction: column; width: 100%; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+      #categorias { padding: 50px 20px; }
+      #galeria { padding: 50px 20px; }
+      .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
+      .photo-card img { height: 180px; }
+      #contato { padding: 50px 20px; }
+      .contact-btn { gap: 16px; padding: 18px; }
+      .cbtn-icon { font-size: 2rem; }
+      .cbtn-main { font-size: 0.95rem; }
+      footer { padding: 30px 20px; }
+    }
+  </style>
+</head>
+
+<body>
+<div id="floating-bg"></div>
+
+<!-- ── NAV ────────────────────────────────────────── -->
+<nav id="navbar">
+  <a href="#inicio" class="nav-logo">🌸 Maura</a>
+  <ul class="nav-links">
+    <li><a href="#inicio">Início</a></li>
+    <li><a href="#categorias">Produtos</a></li>
+    <li><a href="#galeria">Portfólio</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ───────────────────────────────────────── -->
+<section id="inicio">
+  <div class="hero-eyebrow">✨ Bem-vindo ao nosso portfólio</div>
+  <h1 class="hero-title">Personalizados com <em>Amor</em></h1>
+  <p class="hero-subtitle">Transformando momentos especiais em lembranças eternas</p>
+  
+  <p class="hero-desc">Cada criação é única e feita com muito carinho. Papelaria, acessórios e decorações que trazem alegria para seus eventos.</p>
+
+  <div class="hero-badges">
+    <span class="badge">📖 100% Personalizado</span>
+    <span class="badge">💕 Feito com Amor</span>
+    <span class="badge">⚡ Entrega Rápida</span>
+  </div>
+
+  <div class="hero-btns">
+    <a href="#galeria" class="btn-primary">✨ Ver Portfólio</a>
+    <a href="#contato" class="btn-secondary">📞 Entrar em Contato</a>
+  </div>
+</section>
+
+<!-- ── CATEGORIAS ────────────────────────────────── -->
+<section id="categorias">
+  <div class="section-title fade-in">Nossos Serviços</div>
+  <p class="section-subtitle fade-in">Explore as categorias dos nossos trabalhos incríveis</p>
+  
+  <div class="categorias-grid">
+    <div class="cat-card fade-in">
+      <div class="cat-icon">📖</div>
+      <div class="cat-name">Livros</div>
+      <div class="cat-desc">Livros personalizados para recordar momentos únicos</div>
+    </div>
+    <div class="cat-card fade-in">
+      <div class="cat-icon">📓</div>
+      <div class="cat-name">Cadernos</div>
+      <div class="cat-desc">Cadernos customizados para todos os estilos</div>
+    </div>
+    <div class="cat-card fade-in">
+      <div class="cat-icon">🎉</div>
+      <div class="cat-name">Festas</div>
+      <div class="cat-desc">Decorações e convites para suas celebrações</div>
+    </div>
+    <div class="cat-card fade-in">
+      <div class="cat-icon">🍰</div>
+      <div class="cat-name">Bolos</div>
+      <div class="cat-desc">Embalagens especiais para seus bolos</div>
+    </div>
+    <div class="cat-card fade-in">
+      <div class="cat-icon">🎁</div>
+      <div class="cat-name">Outros</div>
+      <div class="cat-desc">Criações únicas para qualquer ocasião</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALERIA ────────────────────────────────────── -->
+<section id="galeria">
+  <div class="section-title fade-in">Nosso Portfólio</div>
+  <p class="section-subtitle fade-in">Veja os trabalhos que já realizamos com dedicação</p>
+
+  <div id="filter-tabs"></div>
+  <div id="gallery-container"></div>
+</section>
+
+<!-- ── CONTATO ────────────────────────────────────– -->
+<section id="contato">
+  <div class="section-title fade-in">Entre em Contato</div>
+  
+  <div class="contact-wrapper fade-in">
+    <div class="contact-btns">
+      <a href="https://wa.me/5511953827032?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20seus%20produtos%20personalizados!" target="_blank" class="contact-btn whatsapp">
+        <span class="cbtn-icon">💬</span>
+        <div>
+          <div class="cbtn-main">WhatsApp</div>
+          <div class="cbtn-sub">(11) 95382-7032</div>
+        </div>
+      </a>
+      <a href="mailto:maurabq.mbq@gmail.com" class="contact-btn email">
+        <span class="cbtn-icon">📧</span>
+        <div>
+          <div class="cbtn-main">E-mail</div>
+          <div class="cbtn-sub" style="color:var(--text-light)">maurabq.mbq@gmail.com</div>
+        </div>
+      </a>
+      <a href="https://instagram.com/MAURAPAPELARIAPERSONALIZADA" target="_blank" class="contact-btn instagram">
+        <span class="cbtn-icon">📸</span>
+        <div>
+          <div class="cbtn-main">Instagram</div>
+          <div class="cbtn-sub">@MAURAPAPELARIAPERSONALIZADA</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="contato-deco fade-in">
+      <div class="deco-box">
+        <span class="big-emoji">🌸</span>
+        <h3>Por que nos escolher?</h3>
+        <p>Cada pedido é tratado com atenção especial — porque você merece algo verdadeiramente único.</p>
+        <div class="deco-features">
+          <div class="deco-feature"><span class="check">✓</span>100% personalizado</div>
+          <div class="deco-feature"><span class="check">✓</span>Feito com muito amor</div>
+          <div class="deco-feature"><span class="check">✓</span>Entrega rápida</div>
+          <div class="deco-feature"><span class="check">✓</span>Qualidade garantida</div>
+          <div class="deco-feature"><span class="check">✓</span>Atendimento humanizado</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────── -->
+<footer>
+  <span class="footer-logo">🌸 Maura Papelaria Personalizados</span>
+  <div class="footer-links">
+    <a href="#inicio">Início</a>
+    <a href="#categorias">Produtos</a>
+    <a href="#galeria">Portfólio</a>
+    <a href="#contato">Contato</a>
+  </div>
+  <p>Feito com 💕 e muito carinho · Todos os direitos reservados</p>
+</footer>
+
+<!-- ── MODAL ──────────────────────────────────────── -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')" aria-label="Fechar">✕</button>
+  <img class="modal-img" id="modal-img" src="" alt="Foto ampliada">
+</div>
+
+<!-- ── SCRIPTS ────────────────────────────────────– -->
+<script>
+  // ID da sua planilha Google Sheets
+  const SHEET_ID = '1NATEUBhCTeZT6i0tM459D6dwtLNo0VCvVkAEkXa0eAg';
+
+  // ─── 1. EMOJIS FLUTUANTES ─────────────────────────────────
+  (function() {
+    var EMOJIS = ['✏️','📖','📝','🎂','🎀','🎁','🖊️','📚','🌸','🎊','🎉','🍰','✨','💕','🎈','🖍️','📓','💝','🌷','🎗️','🎪','🌺','🎀','📌'];
+    var bg = document.getElementById('floating-bg');
+
+    function spawn() {
+      var el        = document.createElement('span');
+      el.classList.add('floating-emoji');
+      el.textContent = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
+
+      var size     = (Math.random() * 20 + 15).toFixed(0);
+      var duration = (Math.random() * 22 + 14).toFixed(1);
+      var startX   = (Math.random() * 98).toFixed(1);
+      var sway     = ((Math.random() - 0.5) * 140).toFixed(0);
+      var rot      = ((Math.random() - 0.5) * 420).toFixed(0);
+      var op       = (Math.random() * 0.28 + 0.07).toFixed(2);
+
+      el.style.cssText = [
+        'font-size:'           + size     + 'px',
+        'left:'                + startX   + 'vw',
+        'animation-duration:'  + duration + 's',
+        'animation-delay:-'    + (Math.random() * parseFloat(duration)).toFixed(1) + 's',
+        'animation-fill-mode:both',
+        '--sway:'              + sway     + 'px',
+        '--rot:'               + rot      + 'deg',
+        '--op:'                + op
+      ].join(';');
+
+      bg.appendChild(el);
+      setTimeout(function() {
+        if (el.parentNode) el.parentNode.removeChild(el);
+      }, (parseFloat(duration) + 3) * 1000);
+    }
+
+    for (var i = 0; i < 30; i++) spawn();
+    setInterval(spawn, 1100);
+  })();
+
+  // ─── 2. NAV SCROLLED ──────────────────────────────────────
+  window.addEventListener('scroll', function() {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  // ─── 3. FADE-IN AO ROLAR ──────────────────────────────────
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
+
+  // ─── 4. GALERIA E FILTROS DINÂMICOS ───────────────────────
+  var allFotos   = [];
+  var currentCat = 'Todos';
+  var container  = document.getElementById('gallery-container');
+
+  function buildFilters(fotos) {
+    var tabsContainer = document.getElementById('filter-tabs');
+    tabsContainer.innerHTML = '';
+
+    var btnTodos = document.createElement('button');
+    btnTodos.className = 'filter-btn ' + (currentCat === 'Todos' ? 'active' : '');
+    btnTodos.dataset.cat = 'Todos';
+    btnTodos.textContent = 'Todos';
+    btnTodos.addEventListener('click', filterClick);
+    tabsContainer.appendChild(btnTodos);
+
+    var categorias = [];
+    fotos.forEach(function(f) {
+      if (f.categoria && categorias.indexOf(f.categoria) === -1) {
+        categorias.push(f.categoria);
+      }
+    });
+    categorias.sort();
+
+    var emojiMap = {
+      'Livros': '📖 ',
+      'Cadernos': '📓 ',
+      'Festas': '🎉 ',
+      'Bolos': '🍰 ',
+      'Outros': '🎁 '
+    };
+
+    categorias.forEach(function(cat) {
+      var btn = document.createElement('button');
+      btn.className = 'filter-btn ' + (currentCat === cat ? 'active' : '');
+      btn.dataset.cat = cat;
+      var prefix = emojiMap[cat] || '✨ ';
+      btn.textContent = prefix + cat;
+      btn.addEventListener('click', filterClick);
+      tabsContainer.appendChild(btn);
+    });
+  }
+
+  function filterClick(e) {
+    document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    e.currentTarget.classList.add('active');
+    currentCat = e.currentTarget.dataset.cat;
+    buildGallery(allFotos);
+  }
+
+  function buildGallery(fotos) {
+    var filtered = currentCat === 'Todos'
+      ? fotos
+      : fotos.filter(function(f) { return f.categoria === currentCat; });
+
+    if (!filtered || filtered.length === 0) {
+      container.innerHTML = '<div class="empty-gallery">'
+        + '<span class="big">📸</span>'
+        + '<p>' + (fotos.length === 0
+            ? 'Em breve, nosso portfólio completo por aqui!<br><small style="color:var(--text-light)">Adicione fotos na planilha para aparecerem aqui.</small>'
+            : 'Nenhuma foto nessa categoria ainda.')
+        + '</p></div>';
+      return;
+    }
+
+    var html = '<div class="gallery-grid">';
+    filtered.forEach(function(foto) {
+      var url = 'https://drive.google.com/thumbnail?id=' + foto.id + '&sz=w1000';
+      html += '<div class="photo-card fade-in" onclick="openModal(\'' + url + '\')">';
+      html += '  <img src="' + url + '" alt="' + foto.descricao + '" loading="lazy">';
+      html += '  <div class="photo-overlay">';
+      html += '    <div class="overlay-cat">' + foto.categoria + '</div>';
+      html += '    <div class="overlay-name">' + foto.descricao + '</div>';
+      html += '  </div>';
+      html += '  <div class="photo-info">';
+      html += '    <h3>' + foto.descricao + '</h3>';
+      html += '    <span class="cat-chip">' + foto.categoria + '</span>';
+      html += '  </div>';
+      html += '</div>';
+    });
+    html += '</div>';
+
+    container.innerHTML = html;
+    container.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
+  }
+
+  // Buscar fotos da Google Sheets API
+  function carregarFotos() {
+    var apiKey = 'AIzaSyDEXHCUMqNZVdJh-MjvLvOJhBbQxNfYVu4'; // Chave pública (restrita a leitura)
+    var range = 'Sheet1!A2:C'; // Começa da linha 2 (ignora cabeçalho)
+    var url = 'https://sheets.googleapis.com/v4/spreadsheets/' + SHEET_ID + '/values/' + range + '?key=' + apiKey;
+
+    fetch(url)
+      .then(function(response) {
+        if (!response.ok) throw new Error('Erro ao carregar planilha');
+        return response.json();
+      })
+      .then(function(data) {
+        var fotos = [];
+        if (data.values) {
+          data.values.forEach(function(row) {
+            var descricao = row[0] || '';
+            var idFoto = row[1] || '';
+            var categoria = row[2] || 'Outros';
+
+            if (descricao && idFoto) {
+              fotos.push({
+                descricao: String(descricao).trim(),
+                id: String(idFoto).trim(),
+                categoria: String(categoria).trim()
+              });
+            }
+          });
+        }
+        allFotos = fotos;
+        buildFilters(allFotos);
+        buildGallery(allFotos);
+      })
+      .catch(function(error) {
+        console.error('Erro:', error);
+        container.innerHTML = '<div class="empty-gallery"><span class="big">📸</span>'
+          + '<p>Em breve as fotos do portfólio estarão aqui!</p></div>';
+      });
+  }
+
+  // Carregar fotos ao iniciar
+  carregarFotos();
+
+  // ─── 5. MODAL ──────────────────────────────────────────────
+  function openModal(url) {
+    document.getElementById('modal-img').src = url;
+    document.getElementById('modal').classList.add('open');
+  }
+
+  function closeModal(e) {
+    if (e.target.id === 'modal') {
+      document.getElementById('modal').classList.remove('open');
+    }
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') document.getElementById('modal').classList.remove('open');
+  });
+</script>
+
+</body>
+</html>
