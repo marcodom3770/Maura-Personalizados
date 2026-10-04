@@ -9,454 +9,158 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:wght@300;400;500;600&family=Dancing+Script:wght@500;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --rose-white  : #FFF0F5;
-      --blush-light : #FFE4EE;
-      --blush       : #FFB6C8;
-      --rose        : #E8729A;
-      --deep-rose   : #C94F7C;
-      --berry       : #A33060;
-      --text-dark   : #3A1525;
-      --text-mid    : #7A3D58;
-      --text-light  : #B8789A;
-      --card-bg     : rgba(255,255,255,0.88);
-      --shadow-soft : 0 8px 32px rgba(200,79,124,0.12);
+      --rose-white  : #FFF0F5; --blush-light : #FFE4EE; --blush: #FFB6C8;
+      --rose: #E8729A; --deep-rose: #C94F7C; --berry: #A33060;
+      --text-dark: #3A1525; --text-mid: #7A3D58; --text-light: #B8789A;
+      --card-bg: rgba(255,255,255,0.88);
+      --shadow-soft: 0 8px 32px rgba(200,79,124,0.12);
       --shadow-hover: 0 18px 52px rgba(200,79,124,0.22);
     }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: var(--rose-white);
-      color: var(--text-dark);
-      overflow-x: hidden;
-    }
-
-    /* ── FLOATING BG ─────────────────────────────── */
-    #floating-bg {
-      position: fixed; inset: 0; z-index: 0;
-      pointer-events: none; overflow: hidden;
-    }
-    .floating-emoji {
-      position: absolute; bottom: -70px;
-      animation: floatUp linear;
-      pointer-events: none; user-select: none;
-      line-height: 1; will-change: transform, opacity;
-    }
+    body { font-family: 'Poppins', sans-serif; background: var(--rose-white); color: var(--text-dark); overflow-x: hidden; }
+    #floating-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .floating-emoji { position: absolute; bottom: -70px; animation: floatUp linear; pointer-events: none; user-select: none; line-height: 1; will-change: transform, opacity; }
     @keyframes floatUp {
       0%   { transform: translateY(0) rotate(0deg) translateX(0px); opacity: 0; }
-      8%   { opacity: var(--op); }
-      92%  { opacity: var(--op); }
+      8%   { opacity: var(--op); } 92%  { opacity: var(--op); }
       100% { transform: translateY(calc(-100vh - 80px)) rotate(var(--rot)) translateX(var(--sway)); opacity: 0; }
     }
-
-    /* ── NAV ─────────────────────────────────────── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 15px 40px;
-      background: rgba(255,240,245,0.92);
-      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255,182,200,0.35);
-      transition: box-shadow 0.3s;
-    }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 15px 40px; background: rgba(255,240,245,0.92); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,182,200,0.35); transition: box-shadow 0.3s; }
     nav.scrolled { box-shadow: 0 4px 24px rgba(200,79,124,0.13); }
-
-    .nav-logo {
-      font-family: 'Dancing Script', cursive; font-size: 1.65rem; font-weight: 700;
-      color: var(--deep-rose); text-decoration: none; letter-spacing: 0.02em;
-    }
+    .nav-logo { font-family: 'Dancing Script', cursive; font-size: 1.65rem; font-weight: 700; color: var(--deep-rose); text-decoration: none; }
     .nav-links { display: flex; gap: 26px; list-style: none; align-items: center; }
-    .nav-links a {
-      font-size: 0.85rem; font-weight: 500; color: var(--text-mid);
-      text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s;
-    }
+    .nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
     .nav-links a:hover { color: var(--deep-rose); }
-
-    .nav-admin {
-      background: linear-gradient(135deg, var(--rose), var(--deep-rose));
-      color: #fff; padding: 9px 22px; border-radius: 50px; border: none;
-      font-weight: 600; cursor: pointer; box-shadow: 0 4px 18px rgba(200,79,124,0.38);
-      transition: transform 0.2s, box-shadow 0.2s; font-family: 'Poppins', sans-serif;
-      font-size: 0.85rem; position: relative;
-    }
+    .nav-admin { background: linear-gradient(135deg, var(--rose), var(--deep-rose)); color: #fff; padding: 9px 22px; border-radius: 50px; border: none; font-weight: 600; cursor: pointer; box-shadow: 0 4px 18px rgba(200,79,124,0.38); transition: transform 0.2s, box-shadow 0.2s; font-family: 'Poppins', sans-serif; font-size: 0.85rem; }
     .nav-admin:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(200,79,124,0.48); }
-
-    /* ── HERO ────────────────────────────────────── */
-    #inicio {
-      position: relative; z-index: 1; min-height: 100vh;
-      display: flex; flex-direction: column; align-items: center;
-      justify-content: center; text-align: center; padding: 130px 24px 90px;
-      background: linear-gradient(160deg, #FFF0F5 0%, #FFE4EE 45%, #FFF7FA 100%);
-    }
-    .hero-eyebrow {
-      font-family: 'Dancing Script', cursive; font-size: 1.35rem;
-      color: var(--rose); margin-bottom: 14px; letter-spacing: 0.03em;
-    }
-    .hero-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.8rem, 7vw, 5.6rem); font-weight: 700;
-      color: var(--text-dark); line-height: 1.1; margin-bottom: 10px;
-    }
+    #inicio { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 130px 24px 90px; background: linear-gradient(160deg, #FFF0F5 0%, #FFE4EE 45%, #FFF7FA 100%); }
+    .hero-eyebrow { font-family: 'Dancing Script', cursive; font-size: 1.35rem; color: var(--rose); margin-bottom: 14px; }
+    .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 7vw, 5.6rem); font-weight: 700; color: var(--text-dark); line-height: 1.1; margin-bottom: 10px; }
     .hero-title em { font-style: italic; color: var(--deep-rose); }
-    .hero-subtitle {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.05rem, 2.4vw, 1.45rem); font-style: italic;
-      color: var(--text-mid); margin-bottom: 28px; max-width: 560px;
-    }
-    .hero-desc {
-      font-size: 0.95rem; color: var(--text-light); max-width: 520px;
-      line-height: 1.75; margin-bottom: 40px; font-weight: 300;
-    }
+    .hero-subtitle { font-family: 'Playfair Display', serif; font-size: clamp(1.05rem, 2.4vw, 1.45rem); font-style: italic; color: var(--text-mid); margin-bottom: 28px; max-width: 560px; }
+    .hero-desc { font-size: 0.95rem; color: var(--text-light); max-width: 520px; line-height: 1.75; margin-bottom: 40px; font-weight: 300; }
     .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 48px; }
-    .badge {
-      background: white; border: 1.5px solid var(--blush); color: var(--text-mid);
-      padding: 7px 18px; border-radius: 50px; font-size: 0.82rem; font-weight: 500;
-      box-shadow: 0 2px 14px rgba(200,79,124,0.08); transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .badge:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(200,79,124,0.16); }
+    .badge { background: white; border: 1.5px solid var(--blush); color: var(--text-mid); padding: 7px 18px; border-radius: 50px; font-size: 0.82rem; font-weight: 500; box-shadow: 0 2px 14px rgba(200,79,124,0.08); transition: transform 0.2s; }
     .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--rose), var(--deep-rose));
-      color: white; padding: 15px 38px; border-radius: 50px; font-size: 0.95rem;
-      font-weight: 600; text-decoration: none; border: none;
-      box-shadow: 0 6px 26px rgba(200,79,124,0.42);
-      transition: transform 0.2s, box-shadow 0.2s;
-      display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
-      font-family: 'Poppins', sans-serif;
-    }
+    .btn-primary { background: linear-gradient(135deg, var(--rose), var(--deep-rose)); color: white; padding: 15px 38px; border-radius: 50px; font-size: 0.95rem; font-weight: 600; text-decoration: none; border: none; box-shadow: 0 6px 26px rgba(200,79,124,0.42); transition: transform 0.2s, box-shadow 0.2s; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-family: 'Poppins', sans-serif; }
     .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(200,79,124,0.52); }
-
-    /* ── CATEGORIAS ──────────────────────────────── */
     #categorias { position: relative; z-index: 1; padding: 80px 24px; background: white; }
-    .section-title {
-      font-family: 'Playfair Display', serif; text-align: center;
-      font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700;
-      color: var(--text-dark); margin-bottom: 28px;
-    }
-    .section-subtitle {
-      text-align: center; color: var(--text-light); font-size: 1rem;
-      margin-bottom: 50px; max-width: 580px; margin-left: auto; margin-right: auto;
-    }
-    .categorias-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 24px; max-width: 1100px; margin: 0 auto;
-    }
-    .cat-card {
-      background: var(--card-bg); border-radius: 16px; padding: 24px;
-      text-align: center; cursor: pointer; transition: all 0.3s;
-      box-shadow: var(--shadow-soft); border: 2px solid transparent;
-    }
+    .section-title { font-family: 'Playfair Display', serif; text-align: center; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; color: var(--text-dark); margin-bottom: 28px; }
+    .section-subtitle { text-align: center; color: var(--text-light); font-size: 1rem; margin-bottom: 50px; max-width: 580px; margin-left: auto; margin-right: auto; }
+    .categorias-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
+    .cat-card { background: var(--card-bg); border-radius: 16px; padding: 24px; text-align: center; cursor: pointer; transition: all 0.3s; box-shadow: var(--shadow-soft); border: 2px solid transparent; }
     .cat-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); border-color: var(--blush); }
-    .cat-icon { font-size: 2.8rem; margin-bottom: 12px; }
-    .cat-name { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
-    .cat-desc { font-size: 0.88rem; color: var(--text-light); line-height: 1.6; }
-
-    /* ── GALERIA ─────────────────────────────────── */
-    #galeria {
-      position: relative; z-index: 1; padding: 80px 24px;
-      background: linear-gradient(180deg, #FFF0F5 0%, white 50%, #FFF0F5 100%);
-    }
+    .cat-icon { font-size: 2.8rem; margin-bottom: 12px; } .cat-name { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; } .cat-desc { font-size: 0.88rem; color: var(--text-light); line-height: 1.6; }
+    #galeria { position: relative; z-index: 1; padding: 80px 24px; background: linear-gradient(180deg, #FFF0F5 0%, white 50%, #FFF0F5 100%); }
     #filter-tabs { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 50px; }
-    .filter-btn {
-      background: white; color: var(--text-mid); border: 2px solid var(--blush);
-      padding: 10px 22px; border-radius: 50px; font-size: 0.88rem; font-weight: 600;
-      cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 12px rgba(200,79,124,0.08);
-      font-family: 'Poppins', sans-serif;
-    }
+    .filter-btn { background: white; color: var(--text-mid); border: 2px solid var(--blush); padding: 10px 22px; border-radius: 50px; font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'Poppins', sans-serif; }
     .filter-btn:hover { border-color: var(--rose); color: var(--rose); }
-    .filter-btn.active {
-      background: linear-gradient(135deg, var(--rose), var(--deep-rose));
-      color: white; border-color: transparent; box-shadow: 0 6px 24px rgba(200,79,124,0.3);
-    }
+    .filter-btn.active { background: linear-gradient(135deg, var(--rose), var(--deep-rose)); color: white; border-color: transparent; box-shadow: 0 6px 24px rgba(200,79,124,0.3); }
     #gallery-container { max-width: 1200px; margin: 0 auto; }
     .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 22px; }
-    .photo-card {
-      border-radius: 12px; overflow: hidden; cursor: pointer; background: white;
-      box-shadow: var(--shadow-soft); transition: transform 0.3s, box-shadow 0.3s;
-      display: flex; flex-direction: column; position: relative;
-    }
+    .photo-card { border-radius: 12px; overflow: hidden; cursor: pointer; background: white; box-shadow: var(--shadow-soft); transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; position: relative; }
     .photo-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
     .photo-card img { width: 100%; height: 240px; object-fit: cover; display: block; }
-    .photo-overlay {
-      position: absolute; inset: 0; background: rgba(201,79,124,0.88); color: white;
-      display: flex; flex-direction: column; justify-content: center; align-items: center;
-      opacity: 0; transition: opacity 0.3s; padding: 24px; text-align: center;
-    }
+    .photo-overlay { position: absolute; inset: 0; background: rgba(201,79,124,0.88); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s; padding: 24px; text-align: center; }
     .photo-card:hover .photo-overlay { opacity: 1; }
     .overlay-cat { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; margin-bottom: 8px; text-transform: uppercase; }
     .overlay-name { font-size: 1.2rem; font-weight: 600; }
     .photo-info { padding: 14px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
     .photo-info h3 { font-size: 0.95rem; font-weight: 600; color: var(--text-dark); margin-bottom: 8px; line-height: 1.4; }
-    .cat-chip {
-      display: inline-block; background: var(--blush-light); color: var(--rose);
-      padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; width: fit-content;
-    }
+    .cat-chip { display: inline-block; background: var(--blush-light); color: var(--rose); padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; width: fit-content; }
     .empty-gallery { text-align: center; padding: 60px 24px; color: var(--text-light); }
     .empty-gallery .big { font-size: 3.5rem; display: block; margin-bottom: 16px; }
-    .empty-gallery p { font-size: 1rem; line-height: 1.8; }
-
-    /* ── FADE IN ─────────────────────────────────── */
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-    /* ── CONTATO ─────────────────────────────────── */
     #contato { position: relative; z-index: 1; padding: 80px 24px; background: white; }
     .contact-wrapper { max-width: 700px; margin: 0 auto; }
     .contact-btns { display: flex; flex-direction: column; gap: 16px; margin-bottom: 60px; }
-    .contact-btn {
-      display: flex; align-items: center; gap: 20px; padding: 24px;
-      background: var(--card-bg); border-radius: 12px; text-decoration: none;
-      color: var(--text-dark); box-shadow: var(--shadow-soft); transition: all 0.3s;
-      border: 2px solid transparent;
-    }
+    .contact-btn { display: flex; align-items: center; gap: 20px; padding: 24px; background: var(--card-bg); border-radius: 12px; text-decoration: none; color: var(--text-dark); box-shadow: var(--shadow-soft); transition: all 0.3s; border: 2px solid transparent; }
     .contact-btn:hover { transform: translateX(8px); box-shadow: var(--shadow-hover); border-color: var(--blush); }
-    .cbtn-icon { font-size: 2.2rem; flex-shrink: 0; }
-    .cbtn-main { font-weight: 600; font-size: 1rem; color: var(--text-dark); }
-    .cbtn-sub { font-size: 0.85rem; color: var(--text-mid); margin-top: 4px; }
-
-    /* ── FOOTER ──────────────────────────────────── */
+    .cbtn-icon { font-size: 2.2rem; flex-shrink: 0; } .cbtn-main { font-weight: 600; font-size: 1rem; } .cbtn-sub { font-size: 0.85rem; color: var(--text-mid); margin-top: 4px; }
     footer { position: relative; z-index: 1; background: var(--text-dark); color: white; padding: 40px 24px; text-align: center; }
     .footer-logo { display: block; font-family: 'Dancing Script', cursive; font-size: 1.4rem; margin-bottom: 16px; }
     .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 16px; font-size: 0.9rem; }
-    .footer-links a { color: #FFB6C8; text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: white; }
+    .footer-links a { color: #FFB6C8; text-decoration: none; transition: color 0.2s; } .footer-links a:hover { color: white; }
     footer p { font-size: 0.85rem; opacity: 0.8; }
-
-    /* ── IMAGE MODAL ─────────────────────────────── */
-    .modal-overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.85); z-index: 4000;
-      justify-content: center; align-items: center; padding: 20px;
-    }
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 4000; justify-content: center; align-items: center; padding: 20px; }
     .modal-overlay.open { display: flex; }
     .modal-img { max-width: 90vw; max-height: 85vh; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
-    .modal-close {
-      position: absolute; top: 20px; right: 20px; width: 44px; height: 44px;
-      background: white; border: none; border-radius: 50%; font-size: 1.4rem;
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.2); transition: transform 0.2s;
-    }
-    .modal-close:hover { transform: scale(1.1); }
-
-    /* ══════════════════════════════════════════════
-       ADMIN PANEL
-    ══════════════════════════════════════════════ */
-    #admin-overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.65); z-index: 5000;
-      align-items: center; justify-content: center; padding: 16px;
-    }
+    .modal-close { position: absolute; top: 20px; right: 20px; width: 44px; height: 44px; background: white; border: none; border-radius: 50%; font-size: 1.4rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    #admin-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 5000; align-items: center; justify-content: center; padding: 16px; }
     #admin-overlay.open { display: flex; }
-
-    .admin-shell {
-      background: #fff; width: min(880px, 97vw); height: min(90vh, 800px);
-      border-radius: 20px; overflow: hidden; display: flex; flex-direction: column;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
-    }
-
-    /* login screen */
-    .admin-login-wrap {
-      flex: 1; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; padding: 48px 32px; gap: 20px;
-    }
+    .admin-shell { background: #fff; width: min(880px, 97vw); height: min(90vh, 800px); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 30px 80px rgba(0,0,0,0.4); }
+    .admin-login-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 48px 32px; gap: 20px; }
     .admin-login-wrap h2 { font-family: 'Dancing Script', cursive; font-size: 2rem; color: var(--deep-rose); }
     .admin-login-wrap p { color: var(--text-light); font-size: 0.9rem; margin-top: -10px; }
     .admin-login-form { width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 14px; }
-    .adm-input {
-      width: 100%; padding: 12px 16px; border: 2px solid var(--blush); border-radius: 10px;
-      font-family: 'Poppins', sans-serif; font-size: 0.95rem; transition: border-color 0.2s;
-      outline: none;
-    }
+    .adm-input { width: 100%; padding: 12px 16px; border: 2px solid var(--blush); border-radius: 10px; font-family: 'Poppins', sans-serif; font-size: 0.95rem; transition: border-color 0.2s; outline: none; }
     .adm-input:focus { border-color: var(--rose); box-shadow: 0 0 0 3px rgba(232,114,154,0.12); }
-    .btn-adm-login {
-      background: linear-gradient(135deg, var(--rose), var(--deep-rose));
-      color: white; border: none; border-radius: 10px; padding: 13px;
-      font-family: 'Poppins', sans-serif; font-size: 0.95rem; font-weight: 600;
-      cursor: pointer; transition: opacity 0.2s;
-    }
-    .btn-adm-login:hover { opacity: 0.9; }
-    .btn-adm-login:disabled { opacity: 0.6; cursor: not-allowed; }
-    .adm-close-top {
-      position: absolute; top: 16px; right: 16px; background: none; border: none;
-      font-size: 1.6rem; cursor: pointer; color: var(--text-light); line-height: 1;
-    }
-
-    /* dashboard */
+    .btn-adm-login { background: linear-gradient(135deg, var(--rose), var(--deep-rose)); color: white; border: none; border-radius: 10px; padding: 13px; font-family: 'Poppins', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
+    .btn-adm-login:hover { opacity: 0.9; } .btn-adm-login:disabled { opacity: 0.6; cursor: not-allowed; }
+    .adm-close-top { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: var(--text-light); line-height: 1; }
     #admin-dashboard { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-    .admin-topbar {
-      display: flex; align-items: center; gap: 12px; padding: 14px 20px;
-      border-bottom: 1px solid #f0e0e8; flex-shrink: 0; background: #fff8fa;
-    }
+    .admin-topbar { display: flex; align-items: center; gap: 12px; padding: 14px 20px; border-bottom: 1px solid #f0e0e8; flex-shrink: 0; background: #fff8fa; }
     .admin-topbar .a-logo { font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: var(--deep-rose); flex: 1; }
-    .btn-a-close {
-      background: none; border: 1.5px solid var(--blush); border-radius: 8px;
-      padding: 6px 14px; font-size: 0.82rem; color: var(--text-mid); cursor: pointer;
-      transition: all 0.2s; font-family: 'Poppins', sans-serif;
-    }
+    .btn-a-close { background: none; border: 1.5px solid var(--blush); border-radius: 8px; padding: 6px 14px; font-size: 0.82rem; color: var(--text-mid); cursor: pointer; transition: all 0.2s; font-family: 'Poppins', sans-serif; }
     .btn-a-close:hover { border-color: var(--rose); color: var(--rose); }
-
-    /* tabs nav */
-    .admin-tabs-nav {
-      display: flex; overflow-x: auto; border-bottom: 2px solid #f0e0e8;
-      flex-shrink: 0; scrollbar-width: none;
-    }
+    .admin-tabs-nav { display: flex; overflow-x: auto; border-bottom: 2px solid #f0e0e8; flex-shrink: 0; scrollbar-width: none; }
     .admin-tabs-nav::-webkit-scrollbar { display: none; }
-    .a-tab {
-      flex-shrink: 0; padding: 12px 18px; background: none; border: none;
-      border-bottom: 3px solid transparent; font-family: 'Poppins', sans-serif;
-      font-size: 0.82rem; font-weight: 600; color: var(--text-light);
-      cursor: pointer; transition: all 0.2s; white-space: nowrap; margin-bottom: -2px;
-    }
-    .a-tab:hover { color: var(--deep-rose); }
-    .a-tab.active { color: var(--deep-rose); border-bottom-color: var(--deep-rose); }
-    .a-badge {
-      display: inline-flex; align-items: center; justify-content: center;
-      background: var(--deep-rose); color: white; border-radius: 50%;
-      width: 18px; height: 18px; font-size: 0.7rem; margin-left: 5px; font-weight: 700;
-    }
-
-    /* tab body */
+    .a-tab { flex-shrink: 0; padding: 12px 18px; background: none; border: none; border-bottom: 3px solid transparent; font-family: 'Poppins', sans-serif; font-size: 0.82rem; font-weight: 600; color: var(--text-light); cursor: pointer; transition: all 0.2s; white-space: nowrap; margin-bottom: -2px; }
+    .a-tab:hover { color: var(--deep-rose); } .a-tab.active { color: var(--deep-rose); border-bottom-color: var(--deep-rose); }
+    .a-badge { display: inline-flex; align-items: center; justify-content: center; background: var(--deep-rose); color: white; border-radius: 50%; width: 18px; height: 18px; font-size: 0.7rem; margin-left: 5px; font-weight: 700; }
     .admin-body { flex: 1; overflow-y: auto; padding: 24px; }
-    .a-pane { display: none; }
-    .a-pane.active { display: block; }
+    .a-pane { display: none; } .a-pane.active { display: block; }
     .a-section-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--text-dark); margin-bottom: 6px; }
     .a-section-desc { font-size: 0.88rem; color: var(--text-light); margin-bottom: 24px; line-height: 1.6; }
     .a-loading { color: var(--text-light); font-size: 0.9rem; text-align: center; padding: 40px; }
     .a-empty   { color: var(--text-light); font-size: 0.9rem; text-align: center; padding: 32px; }
-
-    /* ── Upload tab ── */
-    .dropzone {
-      border: 2.5px dashed var(--blush); border-radius: 16px; padding: 50px 24px;
-      text-align: center; cursor: pointer; transition: all 0.2s; background: var(--rose-white);
-    }
+    .dropzone { border: 2.5px dashed var(--blush); border-radius: 16px; padding: 50px 24px; text-align: center; cursor: pointer; transition: all 0.2s; background: var(--rose-white); }
     .dropzone:hover, .dropzone.dz-over { border-color: var(--rose); background: var(--blush-light); }
-    .dz-icon { font-size: 3rem; display: block; margin-bottom: 12px; }
-    .dz-text { font-size: 1rem; font-weight: 600; color: var(--text-mid); margin-bottom: 6px; }
-    .dz-sub  { font-size: 0.82rem; color: var(--text-light); }
+    .dz-icon { font-size: 3rem; display: block; margin-bottom: 12px; } .dz-text { font-size: 1rem; font-weight: 600; color: var(--text-mid); margin-bottom: 6px; } .dz-sub { font-size: 0.82rem; color: var(--text-light); }
     #upload-queue { margin-top: 20px; }
     .file-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
-    .file-item {
-      display: flex; align-items: center; gap: 12px; background: #fff8fa;
-      border: 1px solid var(--blush); border-radius: 10px; padding: 10px 14px;
-    }
-    .fi-name { flex: 1; font-size: 0.88rem; color: var(--text-dark); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .fi-size { font-size: 0.8rem; color: var(--text-light); flex-shrink: 0; }
-    .fi-status { font-size: 1.1rem; flex-shrink: 0; width: 24px; text-align: center; }
-    .btn-upload-all {
-      width: 100%; background: linear-gradient(135deg, var(--rose), var(--deep-rose));
-      color: white; border: none; border-radius: 10px; padding: 13px;
-      font-family: 'Poppins', sans-serif; font-size: 0.95rem; font-weight: 600;
-      cursor: pointer; transition: opacity 0.2s;
-    }
-    .btn-upload-all:hover { opacity: 0.9; }
-    .btn-upload-all:disabled { opacity: 0.5; cursor: not-allowed; }
-
-    /* ── Pendentes tab ── */
+    .file-item { display: flex; align-items: center; gap: 12px; background: #fff8fa; border: 1px solid var(--blush); border-radius: 10px; padding: 10px 14px; }
+    .fi-name { flex: 1; font-size: 0.88rem; color: var(--text-dark); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .fi-size { font-size: 0.8rem; color: var(--text-light); flex-shrink: 0; } .fi-status { font-size: 1.1rem; flex-shrink: 0; width: 24px; text-align: center; }
+    .btn-upload-all { width: 100%; background: linear-gradient(135deg, var(--rose), var(--deep-rose)); color: white; border: none; border-radius: 10px; padding: 13px; font-family: 'Poppins', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
+    .btn-upload-all:hover { opacity: 0.9; } .btn-upload-all:disabled { opacity: 0.5; cursor: not-allowed; }
     .pending-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
     .pending-card { background: #fff8fa; border: 1.5px solid var(--blush); border-radius: 14px; overflow: hidden; }
     .pending-thumb { width: 100%; height: 180px; object-fit: cover; display: block; background: var(--blush-light); }
     .pending-form { padding: 14px; display: flex; flex-direction: column; gap: 10px; }
-    .pending-form input, .pending-form select {
-      width: 100%; padding: 9px 12px; border: 1.5px solid var(--blush); border-radius: 8px;
-      font-family: 'Poppins', sans-serif; font-size: 0.88rem; outline: none;
-      transition: border-color 0.2s;
-    }
+    .pending-form input, .pending-form select { width: 100%; padding: 9px 12px; border: 1.5px solid var(--blush); border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 0.88rem; outline: none; transition: border-color 0.2s; }
     .pending-form input:focus, .pending-form select:focus { border-color: var(--rose); }
     .pending-actions { display: flex; gap: 8px; }
-    .btn-publicar {
-      flex: 1; background: linear-gradient(135deg, #4CAF50, #388E3C);
-      color: white; border: none; border-radius: 8px; padding: 9px;
-      font-family: 'Poppins', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer;
-    }
-    .btn-descartar {
-      background: #fff; border: 1.5px solid #f0e0e8; border-radius: 8px; padding: 9px 12px;
-      cursor: pointer; font-size: 1rem; transition: background 0.2s;
-    }
+    .btn-publicar { flex: 1; background: linear-gradient(135deg, #4CAF50, #388E3C); color: white; border: none; border-radius: 8px; padding: 9px; font-family: 'Poppins', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+    .btn-descartar { background: #fff; border: 1.5px solid #f0e0e8; border-radius: 8px; padding: 9px 12px; cursor: pointer; font-size: 1rem; transition: background 0.2s; }
     .btn-descartar:hover { background: #fff0f0; }
-
-    /* ── Publicadas tab ── */
     .pub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
     .pub-card { background: white; border: 1.5px solid var(--blush); border-radius: 12px; overflow: hidden; }
     .pub-card img { width: 100%; height: 160px; object-fit: cover; display: block; }
-    .pub-info { padding: 12px; }
-    .pub-cat { font-size: 0.75rem; font-weight: 600; color: var(--rose); background: var(--blush-light); padding: 3px 10px; border-radius: 50px; display: inline-block; margin-bottom: 6px; }
+    .pub-info { padding: 12px; } .pub-cat { font-size: 0.75rem; font-weight: 600; color: var(--rose); background: var(--blush-light); padding: 3px 10px; border-radius: 50px; display: inline-block; margin-bottom: 6px; }
     .pub-desc { font-size: 0.85rem; color: var(--text-dark); margin-bottom: 10px; line-height: 1.4; }
-    .btn-del-pub {
-      width: 100%; background: #fff0f0; border: 1px solid #f8c8c8; color: #c94f4f;
-      border-radius: 7px; padding: 7px; font-size: 0.82rem; font-weight: 600;
-      cursor: pointer; font-family: 'Poppins', sans-serif; transition: background 0.2s;
-    }
+    .btn-del-pub { width: 100%; background: #fff0f0; border: 1px solid #f8c8c8; color: #c94f4f; border-radius: 7px; padding: 7px; font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; transition: background 0.2s; }
     .btn-del-pub:hover { background: #ffe0e0; }
-
-    /* ── Site config tab ── */
     .config-form { display: flex; flex-direction: column; gap: 18px; max-width: 600px; }
     .cfg-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-mid); margin-bottom: 6px; }
     .cfg-row { display: flex; gap: 10px; align-items: flex-start; }
-    .cfg-row input, .cfg-row textarea {
-      flex: 1; padding: 10px 12px; border: 1.5px solid var(--blush); border-radius: 8px;
-      font-family: 'Poppins', sans-serif; font-size: 0.9rem; outline: none;
-      transition: border-color 0.2s;
-    }
+    .cfg-row input, .cfg-row textarea { flex: 1; padding: 10px 12px; border: 1.5px solid var(--blush); border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
     .cfg-row textarea { resize: vertical; min-height: 70px; }
     .cfg-row input:focus, .cfg-row textarea:focus { border-color: var(--rose); }
-    .btn-cfg-save {
-      flex-shrink: 0; background: var(--rose); color: white; border: none;
-      border-radius: 8px; padding: 10px 16px; font-size: 1rem; cursor: pointer;
-      transition: background 0.2s; align-self: stretch;
-    }
+    .btn-cfg-save { flex-shrink: 0; background: var(--rose); color: white; border: none; border-radius: 8px; padding: 10px 16px; font-size: 1rem; cursor: pointer; transition: background 0.2s; align-self: stretch; }
     .btn-cfg-save:hover { background: var(--deep-rose); }
-
-    /* ── Categorias tab ── */
     .cats-admin-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
-    .cat-admin-item {
-      display: flex; align-items: center; gap: 12px; background: #fff8fa;
-      border: 1.5px solid var(--blush); border-radius: 10px; padding: 12px 16px;
-    }
-    .cat-admin-emoji { font-size: 1.5rem; }
-    .cat-admin-nome { flex: 1; font-weight: 600; color: var(--text-dark); }
-    .btn-del-cat {
-      background: none; border: 1px solid #f0d0d0; border-radius: 7px;
-      padding: 5px 10px; font-size: 0.9rem; cursor: pointer; color: #c94f4f;
-      transition: background 0.2s;
-    }
+    .cat-admin-item { display: flex; align-items: center; gap: 12px; background: #fff8fa; border: 1.5px solid var(--blush); border-radius: 10px; padding: 12px 16px; }
+    .cat-admin-emoji { font-size: 1.5rem; } .cat-admin-nome { flex: 1; font-weight: 600; color: var(--text-dark); }
+    .btn-del-cat { background: none; border: 1px solid #f0d0d0; border-radius: 7px; padding: 5px 10px; font-size: 0.9rem; cursor: pointer; color: #c94f4f; transition: background 0.2s; }
     .btn-del-cat:hover { background: #fff0f0; }
     .add-cat-form { display: flex; gap: 10px; align-items: center; }
-    .add-cat-emoji { width: 70px; text-align: center; font-size: 1.1rem; }
-    .add-cat-nome { flex: 1; }
-    .btn-add-cat {
-      flex-shrink: 0; background: linear-gradient(135deg, var(--rose), var(--deep-rose));
-      color: white; border: none; border-radius: 8px; padding: 10px 18px;
-      font-family: 'Poppins', sans-serif; font-size: 0.88rem; font-weight: 600; cursor: pointer;
-    }
-
-    /* ── Conta tab ── */
-    .conta-form { display: flex; flex-direction: column; gap: 16px; max-width: 380px; }
-    .conta-form label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-mid); margin-bottom: 6px; }
-    .btn-conta-save {
-      background: linear-gradient(135deg, var(--rose), var(--deep-rose));
-      color: white; border: none; border-radius: 10px; padding: 13px;
-      font-family: 'Poppins', sans-serif; font-size: 0.95rem; font-weight: 600;
-      cursor: pointer; margin-top: 4px;
-    }
-
-    /* ── TOAST ───────────────────────────────────── */
-    .toast {
-      position: fixed; bottom: 24px; left: 50%;
-      transform: translateX(-50%) translateY(120px);
-      background: #333; color: white; padding: 12px 26px;
-      border-radius: 50px; font-size: 0.9rem; font-weight: 500;
-      z-index: 9999; transition: transform 0.3s ease; white-space: nowrap;
-      pointer-events: none;
-    }
+    .add-cat-emoji { width: 70px; text-align: center; font-size: 1.1rem; } .add-cat-nome { flex: 1; }
+    .btn-add-cat { flex-shrink: 0; background: linear-gradient(135deg, var(--rose), var(--deep-rose)); color: white; border: none; border-radius: 8px; padding: 10px 18px; font-family: 'Poppins', sans-serif; font-size: 0.88rem; font-weight: 600; cursor: pointer; }
+    .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(120px); background: #333; color: white; padding: 12px 26px; border-radius: 50px; font-size: 0.9rem; font-weight: 500; z-index: 9999; transition: transform 0.3s ease; white-space: nowrap; pointer-events: none; }
     .toast.show { transform: translateX(-50%) translateY(0); }
-    .toast.t-success { background: #2a9d6f; }
-    .toast.t-error   { background: #c94f4f; }
-    .toast.t-info    { background: #5b8fd1; }
-
-    /* ── RESPONSIVE ──────────────────────────────── */
+    .toast.t-success { background: #2a9d6f; } .toast.t-error { background: #c94f4f; } .toast.t-info { background: #5b8fd1; }
     @media (max-width: 768px) {
       nav { padding: 12px 20px; flex-direction: column; gap: 10px; }
       .nav-links { gap: 14px; flex-wrap: wrap; justify-content: center; }
@@ -464,7 +168,6 @@
       #categorias, #galeria, #contato { padding: 50px 20px; }
       .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
       .photo-card img { height: 160px; }
-      .contact-btn { gap: 14px; padding: 16px; }
       .admin-shell { height: 97vh; border-radius: 14px; }
       .admin-body { padding: 16px; }
       .pending-grid { grid-template-columns: 1fr; }
@@ -473,11 +176,9 @@
     }
   </style>
 </head>
-
 <body>
 <div id="floating-bg"></div>
 
-<!-- ── NAV ──────────────────────────────────────── -->
 <nav id="navbar">
   <a href="#inicio" class="nav-logo" id="nav-logo">🌸 Maura</a>
   <ul class="nav-links">
@@ -489,7 +190,6 @@
   <button class="nav-admin" onclick="openAdmin()">⚙️ Admin</button>
 </nav>
 
-<!-- ── HERO ─────────────────────────────────────── -->
 <section id="inicio">
   <div class="hero-eyebrow">✨ Bem-vindo ao nosso portfólio</div>
   <h1 class="hero-title" id="hero-titulo-el">Personalizados com <em>Amor</em></h1>
@@ -500,21 +200,15 @@
     <span class="badge">💕 Feito com Amor</span>
     <span class="badge">⚡ Entrega Rápida</span>
   </div>
-  <div class="hero-btns">
-    <a href="#galeria" class="btn-primary">✨ Ver Portfólio</a>
-  </div>
+  <div class="hero-btns"><a href="#galeria" class="btn-primary">✨ Ver Portfólio</a></div>
 </section>
 
-<!-- ── CATEGORIAS ────────────────────────────────── -->
 <section id="categorias">
   <div class="section-title fade-in">Nossos Serviços</div>
   <p class="section-subtitle fade-in">Explore as categorias dos nossos trabalhos incríveis</p>
-  <div class="categorias-grid" id="cats-section-grid">
-    <!-- preenchido dinamicamente -->
-  </div>
+  <div class="categorias-grid" id="cats-section-grid"></div>
 </section>
 
-<!-- ── GALERIA ────────────────────────────────────── -->
 <section id="galeria">
   <div class="section-title fade-in">Nosso Portfólio</div>
   <p class="section-subtitle fade-in">Veja os trabalhos que já realizamos com dedicação</p>
@@ -522,136 +216,97 @@
   <div id="gallery-container"></div>
 </section>
 
-<!-- ── CONTATO ────────────────────────────────────── -->
 <section id="contato">
   <div class="section-title fade-in">Entre em Contato</div>
   <div class="contact-wrapper fade-in">
     <div class="contact-btns">
       <a id="contact-whatsapp" href="#" target="_blank" class="contact-btn">
         <span class="cbtn-icon">💬</span>
-        <div>
-          <div class="cbtn-main">WhatsApp</div>
-          <div class="cbtn-sub" id="whatsapp-display">(11) 95382-7032</div>
-        </div>
+        <div><div class="cbtn-main">WhatsApp</div><div class="cbtn-sub" id="whatsapp-display">(11) 95382-7032</div></div>
       </a>
       <a id="contact-email" href="mailto:" class="contact-btn">
         <span class="cbtn-icon">📧</span>
-        <div>
-          <div class="cbtn-main">E-mail</div>
-          <div class="cbtn-sub" id="email-display">carregando...</div>
-        </div>
+        <div><div class="cbtn-main">E-mail</div><div class="cbtn-sub" id="email-display">carregando...</div></div>
       </a>
       <a id="contact-instagram" href="#" target="_blank" class="contact-btn">
         <span class="cbtn-icon">📸</span>
-        <div>
-          <div class="cbtn-main">Instagram</div>
-          <div class="cbtn-sub" id="instagram-display">carregando...</div>
-        </div>
+        <div><div class="cbtn-main">Instagram</div><div class="cbtn-sub" id="instagram-display">carregando...</div></div>
       </a>
     </div>
   </div>
 </section>
 
-<!-- ── FOOTER ─────────────────────────────────────── -->
 <footer>
   <span class="footer-logo" id="footer-nome">🌸 Maura Personalizados</span>
   <div class="footer-links">
-    <a href="#inicio">Início</a>
-    <a href="#categorias">Produtos</a>
-    <a href="#galeria">Portfólio</a>
-    <a href="#contato">Contato</a>
+    <a href="#inicio">Início</a><a href="#categorias">Produtos</a>
+    <a href="#galeria">Portfólio</a><a href="#contato">Contato</a>
   </div>
   <p>Feito com 💕 e muito carinho · Todos os direitos reservados</p>
 </footer>
 
-<!-- ── IMAGE MODAL ────────────────────────────────── -->
 <div class="modal-overlay" id="modal" onclick="closeModal(event)">
   <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">✕</button>
   <img class="modal-img" id="modal-img" src="" alt="Foto ampliada">
 </div>
 
-<!-- ═══════════════════════════════════════════════
-     ADMIN OVERLAY
-══════════════════════════════════════════════════ -->
 <div id="admin-overlay">
   <div class="admin-shell" style="position:relative">
-
-    <!-- Login screen -->
     <div id="admin-login-screen">
       <div class="admin-login-wrap">
         <h2>🌸 Admin</h2>
         <p>Maura Personalizados</p>
         <div class="admin-login-form">
-          <input class="adm-input" type="text" id="login-usuario" placeholder="Usuário" autocomplete="username">
-          <input class="adm-input" type="password" id="login-senha" placeholder="Senha" autocomplete="current-password"
-            onkeydown="if(event.key==='Enter') doLogin()">
+          <input class="adm-input" type="email" id="login-email" placeholder="E-mail" autocomplete="email">
+          <input class="adm-input" type="password" id="login-senha" placeholder="Senha" autocomplete="current-password" onkeydown="if(event.key==='Enter') doLogin()">
           <button class="btn-adm-login" id="login-btn" onclick="doLogin()">Entrar</button>
         </div>
       </div>
       <button class="adm-close-top" onclick="closeAdmin()">✕</button>
     </div>
-
-    <!-- Dashboard -->
-    <div id="admin-dashboard" style="display:none; flex:1; flex-direction:column; overflow:hidden; display:none">
-
+    <div id="admin-dashboard" style="display:none">
       <div class="admin-topbar">
         <span class="a-logo">🌸 Painel Admin</span>
+        <button class="btn-a-close" onclick="doLogout()">Sair</button>
         <button class="btn-a-close" onclick="closeAdmin()">✕ Fechar</button>
       </div>
-
       <div class="admin-tabs-nav">
         <button class="a-tab active" data-tab="upload"     onclick="showTab('upload')">📤 Upload</button>
         <button class="a-tab"        data-tab="pendentes"  onclick="showTab('pendentes')">⏳ Pendentes <span class="a-badge" id="badge-pendentes" style="display:none">0</span></button>
         <button class="a-tab"        data-tab="publicadas" onclick="showTab('publicadas')">🖼️ Publicadas</button>
         <button class="a-tab"        data-tab="site"       onclick="showTab('site')">⚙️ Site</button>
         <button class="a-tab"        data-tab="categorias" onclick="showTab('categorias')">🏷️ Categorias</button>
-        <button class="a-tab"        data-tab="conta"      onclick="showTab('conta')">🔒 Conta</button>
       </div>
-
       <div class="admin-body">
-
-        <!-- ── Upload ──────────────────────────────── -->
         <div class="a-pane active" id="tab-upload">
-          <h3 class="a-section-title">Enviar Fotos para o Drive</h3>
-          <p class="a-section-desc">Selecione as fotos. Elas ficam "Pendentes" até você configurar descrição e categoria para publicá-las.</p>
+          <h3 class="a-section-title">Enviar Fotos</h3>
+          <p class="a-section-desc">Selecione as fotos. Elas ficam "Pendentes" até você configurar descrição e categoria.</p>
           <div class="dropzone" id="dropzone">
             <span class="dz-icon">📷</span>
             <p class="dz-text">Clique ou arraste as fotos aqui</p>
-            <p class="dz-sub">JPG · PNG · WEBP &nbsp;|&nbsp; máx. 10 MB por foto</p>
+            <p class="dz-sub">JPG · PNG · WEBP · qualquer tamanho</p>
             <input type="file" id="file-input" multiple accept="image/*" style="display:none">
           </div>
           <div id="upload-queue" style="display:none">
             <div class="file-list" id="file-list"></div>
-            <button class="btn-upload-all" id="btn-upload-all" onclick="uploadAll()">📤 Enviar para o Drive</button>
+            <button class="btn-upload-all" id="btn-upload-all" onclick="uploadAll()">📤 Enviar fotos</button>
           </div>
         </div>
-
-        <!-- ── Pendentes ───────────────────────────── -->
         <div class="a-pane" id="tab-pendentes">
           <h3 class="a-section-title">Fotos Pendentes</h3>
-          <p class="a-section-desc">Preencha a descrição e a categoria de cada foto e clique em Publicar para disponibilizá-la no site.</p>
-          <div class="pending-grid" id="pendentes-grid">
-            <p class="a-loading">Carregando...</p>
-          </div>
+          <p class="a-section-desc">Preencha a descrição e a categoria de cada foto e clique em Publicar.</p>
+          <div class="pending-grid" id="pendentes-grid"><p class="a-loading">Carregando...</p></div>
         </div>
-
-        <!-- ── Publicadas ──────────────────────────── -->
         <div class="a-pane" id="tab-publicadas">
           <h3 class="a-section-title">Fotos Publicadas</h3>
           <p class="a-section-desc">Gerencie as fotos visíveis no site.</p>
-          <div class="pub-grid" id="publicadas-grid">
-            <p class="a-loading">Carregando...</p>
-          </div>
+          <div class="pub-grid" id="publicadas-grid"><p class="a-loading">Carregando...</p></div>
         </div>
-
-        <!-- ── Site ───────────────────────────────── -->
         <div class="a-pane" id="tab-site">
           <h3 class="a-section-title">Configurações do Site</h3>
           <p class="a-section-desc">Edite o campo e clique em 💾 para salvar.</p>
           <div class="config-form" id="site-config-form"></div>
         </div>
-
-        <!-- ── Categorias ──────────────────────────── -->
         <div class="a-pane" id="tab-categorias">
           <h3 class="a-section-title">Categorias</h3>
           <p class="a-section-desc">Adicione ou remova categorias do portfólio.</p>
@@ -659,126 +314,150 @@
           <h4 style="margin-bottom:12px; color:var(--text-mid); font-size:0.9rem;">Nova categoria</h4>
           <div class="add-cat-form">
             <input class="adm-input add-cat-emoji" id="new-cat-emoji" placeholder="🎀" maxlength="4">
-            <input class="adm-input add-cat-nome" id="new-cat-nome" placeholder="Nome da categoria"
-              onkeydown="if(event.key==='Enter') addCat()">
+            <input class="adm-input add-cat-nome" id="new-cat-nome" placeholder="Nome da categoria" onkeydown="if(event.key==='Enter') addCat()">
             <button class="btn-add-cat" onclick="addCat()">+ Adicionar</button>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-        <!-- ── Conta ───────────────────────────────── -->
-        <div class="a-pane" id="tab-conta">
-          <h3 class="a-section-title">Minha Conta</h3>
-          <p class="a-section-desc">Altere a senha de acesso ao painel admin.</p>
-          <div class="conta-form">
-            <div>
-              <label>Senha atual</label>
-              <input class="adm-input" type="password" id="senha-atual" placeholder="Senha atual">
-            </div>
-            <div>
-              <label>Nova senha</label>
-              <input class="adm-input" type="password" id="nova-senha" placeholder="Mínimo 6 caracteres">
-            </div>
-            <div>
-              <label>Confirmar nova senha</label>
-              <input class="adm-input" type="password" id="confirma-senha" placeholder="Repita a nova senha">
-            </div>
-            <button class="btn-conta-save" onclick="changePassword()">🔒 Alterar Senha</button>
-          </div>
-        </div>
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import { getFirestore, collection, doc, addDoc, getDocs, updateDoc,
+         deleteDoc, query, where, orderBy, setDoc }
+  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
-      </div><!-- /admin-body -->
-    </div><!-- /admin-dashboard -->
-  </div><!-- /admin-shell -->
-</div><!-- /admin-overlay -->
+const CLOUDINARY_CLOUD  = 'jd85wvgv';
+const CLOUDINARY_PRESET = 'maura_upload';
+const FIREBASE_CONFIG = {
+  apiKey:            'AIzaSyCXS9ZGl6FWWssjGpyBD_upg0dlzE9ayLU',
+  authDomain:        'loja-maura-personalizados.firebaseapp.com',
+  projectId:         'loja-maura-personalizados',
+  storageBucket:     'loja-maura-personalizados.firebasestorage.app',
+  messagingSenderId: '40811457725',
+  appId:             '1:40811457725:web:c8167d09e6113f9be91bd4'
+};
 
-<!-- ═══════════════════════════════════════════════
-     SCRIPTS
-══════════════════════════════════════════════════ -->
-<script>
-// ═══════════════════════════════════════════════
-// 🔧 CONFIGURAÇÃO — substitua pela URL do seu App Script
-// ═══════════════════════════════════════════════
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz-Crs2gi3nuJtWhpytwF-yUfd8Bqwrup2caPTDs_vQ7LGM2a0EWeKXu_xklposarnhTw/exec';
+const app  = initializeApp(FIREBASE_CONFIG);
+const auth = getAuth(app);
+const db   = getFirestore(app);
 
-// ─── Estado global ────────────────────────────
-let adminToken    = null;
-let siteConfig    = {};
-let catsList      = [];
-let uploadQueue   = [];
-let allFotos      = [];
-let currentCat    = 'Todos';
+let currentUser    = null;
+let siteConfig     = {};
+let catsList       = [];
+let uploadQueue    = [];
+let allFotos       = [];
+let currentCat     = 'Todos';
 let pendentesCount = 0;
 
-// ─── API helpers ──────────────────────────────
-async function apiGet(params) {
-  const url = new URL(SCRIPT_URL);
-  Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
-  const r = await fetch(url.toString(), { redirect: 'follow' });
-  if (!r.ok) throw new Error('HTTP ' + r.status);
-  return r.json();
+onAuthStateChanged(auth, user => { currentUser = user; });
+
+// ── AUTH ──────────────────────────────────────
+window.doLogin = async function() {
+  const email = document.getElementById('login-email').value.trim();
+  const senha = document.getElementById('login-senha').value;
+  if (!email || !senha) { toast('Preencha e-mail e senha', 'error'); return; }
+  const btn = document.getElementById('login-btn');
+  btn.disabled = true; btn.textContent = 'Entrando...';
+  try {
+    await signInWithEmailAndPassword(auth, email, senha);
+    document.getElementById('admin-login-screen').style.display = 'none';
+    const dash = document.getElementById('admin-dashboard');
+    dash.style.cssText = 'display:flex;flex-direction:column;overflow:hidden;flex:1';
+    showTab('upload');
+    loadPendentesBadge();
+    toast('Bem-vinda! 🌸', 'success');
+  } catch (e) { toast('E-mail ou senha incorretos', 'error'); }
+  btn.disabled = false; btn.textContent = 'Entrar';
+};
+
+window.doLogout = async function() {
+  await signOut(auth);
+  currentUser = null;
+  document.getElementById('admin-dashboard').style.display = 'none';
+  document.getElementById('admin-login-screen').style.display = 'block';
+  closeAdmin();
+};
+
+// ── CLOUDINARY ────────────────────────────────
+async function uploadToCloudinary(file) {
+  const fd = new FormData();
+  fd.append('file', file);
+  fd.append('upload_preset', CLOUDINARY_PRESET);
+  const r = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, { method: 'POST', body: fd });
+  if (!r.ok) throw new Error('Cloudinary error ' + r.status);
+  const d = await r.json();
+  return {
+    url:      d.secure_url,
+    thumb:    d.secure_url.replace('/upload/', '/upload/w_800,q_auto,f_auto/'),
+    publicId: d.public_id
+  };
 }
 
-async function apiPost(body) {
-  const r = await fetch(SCRIPT_URL, {
-    method: 'POST',
-    redirect: 'follow',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify(body)
-  });
-  if (!r.ok) throw new Error('HTTP ' + r.status);
-  return r.json();
+// ── FIRESTORE ─────────────────────────────────
+async function getConfig() {
+  try {
+    const snap = await getDocs(collection(db, 'config'));
+    const cfg = {};
+    snap.forEach(d => { cfg[d.id] = d.data().valor; });
+    return cfg;
+  } catch { return {}; }
 }
 
-// ─── Config ───────────────────────────────────
+async function getCategorias() {
+  try {
+    const snap = await getDocs(query(collection(db, 'categorias'), orderBy('nome')));
+    return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  } catch { return []; }
+}
+
+async function getFotosByStatus(status) {
+  const snap = await getDocs(query(collection(db, 'fotos'), where('status', '==', status)));
+  return snap.docs.map(d => ({ id: d.id, ...d.data() }))
+    .sort((a, b) => (b.created_at || '') > (a.created_at || '') ? 1 : -1);
+}
+
+// ── CONFIG ────────────────────────────────────
 async function carregarConfig() {
   try {
-    siteConfig = await apiGet({ action: 'config' });
+    siteConfig = await getConfig();
+    if (!siteConfig.site_nome) {
+      siteConfig = {
+        site_nome: 'Maura Personalizados',
+        hero_titulo: 'Personalizados com <em>Amor</em>',
+        hero_subtitulo: 'Transformando momentos especiais em lembranças eternas',
+        hero_desc: 'Cada criação é única e feita com muito carinho. Papelaria, acessórios e decorações que trazem alegria para seus eventos.',
+        whatsapp: '5511953827032', whatsapp_display: '(11) 95382-7032',
+        whatsapp_texto: 'Olá! Gostaria de saber mais sobre seus produtos personalizados!',
+        email: 'maurabq.mbq@gmail.com', instagram: 'MAURAPAPELARIAPERSONALIZADA'
+      };
+    }
     applyConfig(siteConfig);
-  } catch (e) { console.warn('Config não carregada:', e); }
+  } catch (e) { console.warn('Config:', e); }
 }
 
 function applyConfig(c) {
   if (!c) return;
   const txt  = (id, v) => { const el = document.getElementById(id); if (el && v !== undefined) el.innerHTML = v; };
-  const href = (id, v) => { const el = document.getElementById(id); if (el && v)  el.href = v; };
-
-  if (c.site_nome) {
-    document.title = c.site_nome;
-    txt('nav-logo', '🌸 ' + c.site_nome);
-    txt('footer-nome', '🌸 ' + c.site_nome);
-  }
-  txt('hero-titulo-el',   c.hero_titulo);
-  txt('hero-subtitulo-el', c.hero_subtitulo);
-  txt('hero-desc-el',     c.hero_desc);
-
-  if (c.whatsapp) {
-    href('contact-whatsapp',
-      'https://wa.me/' + c.whatsapp + '?text=' + encodeURIComponent(c.whatsapp_texto || ''));
-    txt('whatsapp-display', c.whatsapp_display || c.whatsapp);
-  }
-  if (c.email) {
-    href('contact-email', 'mailto:' + c.email);
-    txt('email-display', c.email);
-  }
-  if (c.instagram) {
-    href('contact-instagram', 'https://instagram.com/' + c.instagram);
-    txt('instagram-display', '@' + c.instagram);
-  }
+  const href = (id, v) => { const el = document.getElementById(id); if (el && v) el.href = v; };
+  if (c.site_nome) { document.title = c.site_nome; txt('nav-logo','🌸 '+c.site_nome); txt('footer-nome','🌸 '+c.site_nome); }
+  txt('hero-titulo-el', c.hero_titulo); txt('hero-subtitulo-el', c.hero_subtitulo); txt('hero-desc-el', c.hero_desc);
+  if (c.whatsapp) { href('contact-whatsapp','https://wa.me/'+c.whatsapp+'?text='+encodeURIComponent(c.whatsapp_texto||'')); txt('whatsapp-display', c.whatsapp_display||c.whatsapp); }
+  if (c.email)    { href('contact-email','mailto:'+c.email); txt('email-display', c.email); }
+  if (c.instagram){ href('contact-instagram','https://instagram.com/'+c.instagram); txt('instagram-display','@'+c.instagram); }
 }
 
-// ─── Galeria pública ──────────────────────────
+// ── GALERIA ───────────────────────────────────
 async function carregarFotos() {
   const container = document.getElementById('gallery-container');
   try {
-    const [fotos, cats] = await Promise.all([
-      apiGet({ action: 'fotos' }),
-      catsList.length ? Promise.resolve(catsList) : apiGet({ action: 'categorias' })
-    ]);
-    allFotos = fotos;
-    catsList = cats;
-    buildCatsSection(cats);
-    buildFilters(fotos);
-    buildGallery(fotos);
+    const [fotos, cats] = await Promise.all([getFotosByStatus('publicada'), getCategorias()]);
+    allFotos = fotos; catsList = cats;
+    buildCatsSection(cats); buildFilters(fotos); buildGallery(fotos);
   } catch (e) {
     console.error(e);
     container.innerHTML = '<div class="empty-gallery"><span class="big">📸</span><p>Erro ao carregar. Recarregue a página.</p></div>';
@@ -787,211 +466,110 @@ async function carregarFotos() {
 
 function buildCatsSection(cats) {
   const grid = document.getElementById('cats-section-grid');
-  if (!cats || cats.length === 0) { grid.innerHTML = ''; return; }
-  grid.innerHTML = cats.map(c => `
-    <div class="cat-card fade-in" onclick="document.getElementById('galeria').scrollIntoView({behavior:'smooth'})">
-      <div class="cat-icon">${c.emoji}</div>
-      <div class="cat-name">${c.nome}</div>
-      <div class="cat-desc">Veja nossos ${c.nome.toLowerCase()} personalizados</div>
-    </div>
-  `).join('');
+  if (!cats || !cats.length) { grid.innerHTML = ''; return; }
+  grid.innerHTML = cats.map(c => `<div class="cat-card fade-in" onclick="document.getElementById('galeria').scrollIntoView({behavior:'smooth'})"><div class="cat-icon">${c.emoji}</div><div class="cat-name">${c.nome}</div><div class="cat-desc">Veja nossos ${c.nome.toLowerCase()} personalizados</div></div>`).join('');
   grid.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 }
 
 function buildFilters(fotos) {
   const tabs = document.getElementById('filter-tabs');
   tabs.innerHTML = '';
-
   function makeBtn(label, cat) {
     const b = document.createElement('button');
     b.className = 'filter-btn' + (currentCat === cat ? ' active' : '');
-    b.dataset.cat = cat;
     b.textContent = label;
-    b.addEventListener('click', () => {
-      currentCat = cat;
-      tabs.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active'));
-      b.classList.add('active');
-      buildGallery(fotos);
-    });
+    b.addEventListener('click', () => { currentCat = cat; tabs.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active')); b.classList.add('active'); buildGallery(fotos); });
     return b;
   }
-
   tabs.appendChild(makeBtn('Todos', 'Todos'));
   [...new Set(fotos.map(f => f.categoria).filter(Boolean))].sort().forEach(cat => {
     const c = catsList.find(x => x.nome === cat);
-    tabs.appendChild(makeBtn((c ? c.emoji + ' ' : '') + cat, cat));
+    tabs.appendChild(makeBtn((c ? c.emoji+' ' : '') + cat, cat));
   });
 }
 
 function buildGallery(fotos) {
   const container = document.getElementById('gallery-container');
-  const filtered  = currentCat === 'Todos' ? fotos : fotos.filter(f => f.categoria === currentCat);
-
+  const filtered = currentCat === 'Todos' ? fotos : fotos.filter(f => f.categoria === currentCat);
   if (!filtered.length) {
-    container.innerHTML = '<div class="empty-gallery"><span class="big">📸</span><p>'
-      + (fotos.length === 0
-          ? 'Em breve nosso portfólio completo por aqui!<br><small>Use o painel admin para adicionar fotos.</small>'
-          : 'Nenhuma foto nessa categoria ainda.')
-      + '</p></div>';
+    container.innerHTML = '<div class="empty-gallery"><span class="big">📸</span><p>' + (fotos.length === 0 ? 'Em breve nosso portfólio completo!<br><small>Use o painel admin para adicionar fotos.</small>' : 'Nenhuma foto nessa categoria ainda.') + '</p></div>';
     return;
   }
-
-  container.innerHTML = '<div class="gallery-grid">'
-    + filtered.map(f => `
-      <div class="photo-card fade-in" onclick="openModal('${f.full_url || f.url}')">
-        <img src="${f.url}" alt="${f.descricao}" loading="lazy"
-          onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22240%22 height=%22240%22><rect fill=%22%23ffeaef%22 width=%22240%22 height=%22240%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2248%22>📷</text></svg>'">
-        <div class="photo-overlay">
-          <div class="overlay-cat">${f.categoria}</div>
-          <div class="overlay-name">${f.descricao}</div>
-        </div>
-        <div class="photo-info">
-          <h3>${f.descricao}</h3>
-          <span class="cat-chip">${f.categoria}</span>
-        </div>
-      </div>
-    `).join('')
-    + '</div>';
+  container.innerHTML = '<div class="gallery-grid">' + filtered.map(f => `
+    <div class="photo-card fade-in" onclick="openModal('${f.url}')">
+      <img src="${f.thumb||f.url}" alt="${f.descricao}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22240%22 height=%22240%22><rect fill=%22%23ffeaef%22 width=%22240%22 height=%22240%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2248%22>📷</text></svg>'">
+      <div class="photo-overlay"><div class="overlay-cat">${f.categoria}</div><div class="overlay-name">${f.descricao}</div></div>
+      <div class="photo-info"><h3>${f.descricao}</h3><span class="cat-chip">${f.categoria}</span></div>
+    </div>`).join('') + '</div>';
   container.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 }
 
-// ─── Image modal ──────────────────────────────
-function openModal(url) {
-  document.getElementById('modal-img').src = url;
-  document.getElementById('modal').classList.add('open');
-}
-function closeModal(e) {
-  if (e.target.id === 'modal') document.getElementById('modal').classList.remove('open');
-}
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    document.getElementById('modal').classList.remove('open');
-    closeAdmin();
-  }
-});
+// ── MODAL ─────────────────────────────────────
+window.openModal = function(url) { document.getElementById('modal-img').src = url; document.getElementById('modal').classList.add('open'); };
+window.closeModal = function(e) { if (e.target.id === 'modal') document.getElementById('modal').classList.remove('open'); };
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { document.getElementById('modal').classList.remove('open'); closeAdmin(); } });
 
-// ─── Admin: open / close ──────────────────────
-function openAdmin() {
+// ── ADMIN ─────────────────────────────────────
+window.openAdmin = function() {
   document.getElementById('admin-overlay').classList.add('open');
-  if (!adminToken) {
-    document.getElementById('admin-login-screen').style.display = 'block';
-    document.getElementById('admin-dashboard').style.display   = 'none';
-  }
-}
-function closeAdmin() {
-  document.getElementById('admin-overlay').classList.remove('open');
-}
+  if (!currentUser) { document.getElementById('admin-login-screen').style.display = 'block'; document.getElementById('admin-dashboard').style.display = 'none'; }
+};
+window.closeAdmin = function() { document.getElementById('admin-overlay').classList.remove('open'); };
 
-// ─── Admin: login ─────────────────────────────
-async function doLogin() {
-  const usuario = document.getElementById('login-usuario').value.trim();
-  const senha   = document.getElementById('login-senha').value;
-  if (!usuario || !senha) { toast('Preencha usuário e senha', 'error'); return; }
-
-  const btn = document.getElementById('login-btn');
-  btn.disabled = true; btn.textContent = 'Entrando...';
-  try {
-    const res = await apiPost({ action: 'login', usuario, senha });
-    if (res.success) {
-      adminToken = res.token;
-      document.getElementById('admin-login-screen').style.display = 'none';
-      const dash = document.getElementById('admin-dashboard');
-      dash.style.display = 'flex'; dash.style.flexDirection = 'column'; dash.style.overflow = 'hidden'; dash.style.flex = '1';
-      showTab('upload');
-      loadPendentesBadge();
-    } else {
-      toast(res.error || 'Erro ao fazer login', 'error');
-    }
-  } catch (e) { toast('Erro de conexão com o servidor', 'error'); }
-  btn.disabled = false; btn.textContent = 'Entrar';
-}
-
-// ─── Admin: tab switching ─────────────────────
-function showTab(name) {
+window.showTab = function(name) {
   document.querySelectorAll('.a-pane').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.a-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('tab-' + name).classList.add('active');
-  document.querySelector('[data-tab="' + name + '"]').classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+  document.querySelector('[data-tab="'+name+'"]').classList.add('active');
   if (name === 'pendentes')  loadPendentes();
   if (name === 'publicadas') loadPublicadas();
   if (name === 'site')       renderSiteConfig();
   if (name === 'categorias') loadAdminCats();
-}
+};
 
-// ─── Upload ───────────────────────────────────
+// ── UPLOAD ────────────────────────────────────
 const dropzone  = document.getElementById('dropzone');
 const fileInput = document.getElementById('file-input');
-
 dropzone.addEventListener('click', () => fileInput.click());
 fileInput.addEventListener('change', e => addToQueue(Array.from(e.target.files)));
 dropzone.addEventListener('dragover',  e => { e.preventDefault(); dropzone.classList.add('dz-over'); });
 dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dz-over'));
-dropzone.addEventListener('drop', e => {
-  e.preventDefault(); dropzone.classList.remove('dz-over');
-  addToQueue(Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')));
-});
+dropzone.addEventListener('drop', e => { e.preventDefault(); dropzone.classList.remove('dz-over'); addToQueue(Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'))); });
 
-function addToQueue(files) {
-  const valid = files.filter(f => f.size <= 10 * 1024 * 1024);
-  const big   = files.length - valid.length;
-  if (big > 0) toast(`${big} arquivo(s) maior que 10 MB foram ignorados`, 'info');
-  uploadQueue.push(...valid);
-  renderQueue();
-}
+function addToQueue(files) { uploadQueue.push(...files); renderQueue(); }
 
 function renderQueue() {
   const queueEl = document.getElementById('upload-queue');
-  const listEl  = document.getElementById('file-list');
-  if (uploadQueue.length === 0) { queueEl.style.display = 'none'; fileInput.value = ''; return; }
+  if (!uploadQueue.length) { queueEl.style.display = 'none'; fileInput.value = ''; return; }
   queueEl.style.display = 'block';
-  listEl.innerHTML = uploadQueue.map((f, i) => `
-    <div class="file-item" id="fitem-${i}">
-      <span class="fi-name">${f.name}</span>
-      <span class="fi-size">${(f.size / 1024 / 1024).toFixed(1)} MB</span>
-      <span class="fi-status" id="fstatus-${i}">⏳</span>
-    </div>
-  `).join('');
-  document.getElementById('btn-upload-all').textContent =
-    `📤 Enviar ${uploadQueue.length} foto${uploadQueue.length > 1 ? 's' : ''} para o Drive`;
+  document.getElementById('file-list').innerHTML = uploadQueue.map((f, i) => `<div class="file-item" id="fitem-${i}"><span class="fi-name">${f.name}</span><span class="fi-size">${(f.size/1024/1024).toFixed(1)} MB</span><span class="fi-status" id="fstatus-${i}">⏳</span></div>`).join('');
+  document.getElementById('btn-upload-all').textContent = `📤 Enviar ${uploadQueue.length} foto${uploadQueue.length>1?'s':''}`;
 }
 
-async function fileToBase64(file) {
-  return new Promise((res, rej) => {
-    const r = new FileReader();
-    r.onload = e => res(e.target.result.split(',')[1]);
-    r.onerror = rej;
-    r.readAsDataURL(file);
-  });
-}
-
-async function uploadAll() {
+window.uploadAll = async function() {
+  if (!currentUser) { toast('Faça login primeiro', 'error'); return; }
   const btn = document.getElementById('btn-upload-all');
   btn.disabled = true;
   let ok = 0;
   for (let i = 0; i < uploadQueue.length; i++) {
-    const f  = uploadQueue[i];
-    const st = document.getElementById('fstatus-' + i);
+    const f = uploadQueue[i];
+    const st = document.getElementById('fstatus-'+i);
     st.textContent = '⬆️';
     try {
-      const base64 = await fileToBase64(f);
-      const res = await apiPost({ action: 'upload', token: adminToken, base64, mimeType: f.type, nome: f.name });
-      st.textContent = res.success ? '✅' : '❌';
-      if (res.success) ok++;
-    } catch (_) { st.textContent = '❌'; }
+      const { url, thumb, publicId } = await uploadToCloudinary(f);
+      await addDoc(collection(db, 'fotos'), { url, thumb, publicId, descricao: '', categoria: '', status: 'pendente', created_at: new Date().toISOString() });
+      st.textContent = '✅'; ok++;
+    } catch (e) { console.error(e); st.textContent = '❌'; }
   }
   toast(`${ok} de ${uploadQueue.length} foto(s) enviada(s)!`, ok > 0 ? 'success' : 'error');
   uploadQueue = [];
-  setTimeout(() => { renderQueue(); loadPendentesBadge(); showTab('pendentes'); }, 1800);
+  setTimeout(() => { renderQueue(); loadPendentesBadge(); showTab('pendentes'); }, 1500);
   btn.disabled = false;
-}
+};
 
-// ─── Pendentes ────────────────────────────────
+// ── PENDENTES ─────────────────────────────────
 async function loadPendentesBadge() {
-  try {
-    const fotos = await apiGet({ action: 'pendentes', token: adminToken });
-    pendentesCount = fotos.length;
-    updateBadge();
-  } catch (_) {}
+  try { const f = await getFotosByStatus('pendente'); pendentesCount = f.length; updateBadge(); } catch (_) {}
 }
 
 function updateBadge() {
@@ -1003,106 +581,88 @@ function updateBadge() {
 
 async function loadPendentes() {
   const grid = document.getElementById('pendentes-grid');
-  grid.innerHTML = '<p class="a-loading">Carregando pendentes...</p>';
+  grid.innerHTML = '<p class="a-loading">Carregando...</p>';
   try {
-    const [fotos, cats] = await Promise.all([
-      apiGet({ action: 'pendentes', token: adminToken }),
-      catsList.length ? Promise.resolve(catsList) : apiGet({ action: 'categorias' })
-    ]);
-    catsList = cats;
-    pendentesCount = fotos.length;
-    updateBadge();
-
+    const [fotos, cats] = await Promise.all([getFotosByStatus('pendente'), getCategorias()]);
+    catsList = cats; pendentesCount = fotos.length; updateBadge();
     if (!fotos.length) { grid.innerHTML = '<p class="a-empty">🎉 Sem fotos pendentes! Faça upload na aba Upload.</p>'; return; }
-
-    const catsOpts = cats.map(c => `<option value="${c.nome}">${c.emoji} ${c.nome}</option>`).join('');
+    const opts = cats.map(c => `<option value="${c.nome}">${c.emoji} ${c.nome}</option>`).join('');
     grid.innerHTML = fotos.map(f => `
       <div class="pending-card" id="pc-${f.id}">
-        <img class="pending-thumb" src="${f.url}" alt="Pendente"
-          onerror="this.style.background='var(--blush-light)'; this.src=''">
+        <img class="pending-thumb" src="${f.thumb||f.url}" alt="Pendente" onerror="this.style.background='var(--blush-light)'">
         <div class="pending-form">
           <input type="text" id="desc-${f.id}" placeholder="Descrição da foto...">
-          <select id="cat-${f.id}">
-            <option value="">Escolha a categoria</option>
-            ${catsOpts}
-          </select>
+          <select id="cat-${f.id}"><option value="">Escolha a categoria</option>${opts}</select>
           <div class="pending-actions">
             <button class="btn-publicar" onclick="publicarFoto('${f.id}')">✅ Publicar</button>
-            <button class="btn-descartar" title="Descartar" onclick="descartarFoto('${f.id}')">🗑️</button>
+            <button class="btn-descartar" onclick="descartarFoto('${f.id}')">🗑️</button>
           </div>
         </div>
-      </div>
-    `).join('');
+      </div>`).join('');
   } catch (e) { grid.innerHTML = '<p class="a-empty">Erro ao carregar pendentes.</p>'; }
 }
 
-async function publicarFoto(id) {
-  const desc = document.getElementById('desc-' + id)?.value.trim();
-  const cat  = document.getElementById('cat-'  + id)?.value;
+window.publicarFoto = async function(id) {
+  const desc = document.getElementById('desc-'+id)?.value.trim();
+  const cat  = document.getElementById('cat-'+id)?.value;
   if (!desc || !cat) { toast('Preencha descrição e categoria', 'error'); return; }
-  const res = await apiPost({ action: 'configurar', token: adminToken, id, descricao: desc, categoria: cat });
-  if (res.success) {
-    document.getElementById('pc-' + id)?.remove();
-    pendentesCount = Math.max(0, pendentesCount - 1);
-    updateBadge();
-    toast('Foto publicada! ✅', 'success');
-    carregarFotos();
-  } else { toast(res.error || 'Erro ao publicar', 'error'); }
-}
+  try {
+    await updateDoc(doc(db, 'fotos', id), { descricao: desc, categoria: cat, status: 'publicada' });
+    document.getElementById('pc-'+id)?.remove();
+    pendentesCount = Math.max(0, pendentesCount - 1); updateBadge();
+    toast('Foto publicada! ✅', 'success'); carregarFotos();
+  } catch (e) { toast('Erro ao publicar', 'error'); }
+};
 
-async function descartarFoto(id) {
-  if (!confirm('Descartar e excluir esta foto do Drive?')) return;
-  const res = await apiPost({ action: 'excluir', token: adminToken, id });
-  if (res.success) {
-    document.getElementById('pc-' + id)?.remove();
-    pendentesCount = Math.max(0, pendentesCount - 1);
-    updateBadge();
+window.descartarFoto = async function(id) {
+  if (!confirm('Descartar esta foto?')) return;
+  try {
+    await deleteDoc(doc(db, 'fotos', id));
+    document.getElementById('pc-'+id)?.remove();
+    pendentesCount = Math.max(0, pendentesCount - 1); updateBadge();
     toast('Foto descartada', 'success');
-  } else { toast(res.error || 'Erro', 'error'); }
-}
+  } catch (e) { toast('Erro ao descartar', 'error'); }
+};
 
-// ─── Publicadas ───────────────────────────────
+// ── PUBLICADAS ────────────────────────────────
 async function loadPublicadas() {
   const grid = document.getElementById('publicadas-grid');
-  grid.innerHTML = '<p class="a-loading">Carregando publicadas...</p>';
+  grid.innerHTML = '<p class="a-loading">Carregando...</p>';
   try {
-    const fotos = await apiGet({ action: 'publicadas', token: adminToken });
+    const fotos = await getFotosByStatus('publicada');
     if (!fotos.length) { grid.innerHTML = '<p class="a-empty">Nenhuma foto publicada ainda.</p>'; return; }
     grid.innerHTML = fotos.map(f => `
       <div class="pub-card" id="pub-${f.id}">
-        <img src="${f.url}" alt="${f.descricao}"
-          onerror="this.style.background='var(--blush-light)'; this.src=''">
+        <img src="${f.thumb||f.url}" alt="${f.descricao}" onerror="this.style.background='var(--blush-light)'">
         <div class="pub-info">
           <span class="pub-cat">${f.categoria}</span>
           <p class="pub-desc">${f.descricao}</p>
-          <button class="btn-del-pub" onclick="excluirFotoAdmin('${f.id}')">🗑️ Excluir</button>
+          <button class="btn-del-pub" onclick="excluirFoto('${f.id}')">🗑️ Excluir</button>
         </div>
-      </div>
-    `).join('');
+      </div>`).join('');
   } catch (_) { grid.innerHTML = '<p class="a-empty">Erro ao carregar.</p>'; }
 }
 
-async function excluirFotoAdmin(id) {
-  if (!confirm('Excluir esta foto permanentemente do site e do Drive?')) return;
-  const res = await apiPost({ action: 'excluir', token: adminToken, id });
-  if (res.success) {
-    document.getElementById('pub-' + id)?.remove();
-    toast('Foto excluída', 'success');
-    carregarFotos();
-  } else { toast(res.error || 'Erro', 'error'); }
-}
+window.excluirFoto = async function(id) {
+  if (!confirm('Excluir esta foto permanentemente?')) return;
+  try {
+    await deleteDoc(doc(db, 'fotos', id));
+    document.getElementById('pub-'+id)?.remove();
+    toast('Foto excluída', 'success'); carregarFotos();
+  } catch (e) { toast('Erro ao excluir', 'error'); }
+};
 
-// ─── Site settings ────────────────────────────
+// ── SITE CONFIG ───────────────────────────────
 const CONFIG_FIELDS = [
-  { key: 'site_nome',        label: 'Nome do Site',                type: 'text' },
-  { key: 'hero_titulo',      label: 'Título Principal (aceita <em>italico</em>)', type: 'text' },
-  { key: 'hero_subtitulo',   label: 'Subtítulo',                   type: 'text' },
-  { key: 'hero_desc',        label: 'Descrição abaixo do subtítulo', type: 'textarea' },
-  { key: 'whatsapp',         label: 'WhatsApp (só números, ex: 5511999998888)', type: 'text' },
-  { key: 'whatsapp_display', label: 'WhatsApp (exibição, ex: (11) 99999-8888)',  type: 'text' },
-  { key: 'whatsapp_texto',   label: 'Mensagem padrão do WhatsApp',  type: 'text' },
-  { key: 'email',            label: 'E-mail de contato',            type: 'email' },
-  { key: 'instagram',        label: 'Instagram (sem @)',             type: 'text' },
+  { key: 'site_nome',        label: 'Nome do Site',                              type: 'text' },
+  { key: 'hero_titulo',      label: 'Título Principal (aceita &lt;em&gt;italico&lt;/em&gt;)', type: 'text' },
+  { key: 'hero_subtitulo',   label: 'Subtítulo',                                 type: 'text' },
+  { key: 'hero_desc',        label: 'Descrição abaixo do subtítulo',             type: 'textarea' },
+  { key: 'whatsapp',         label: 'WhatsApp (só números)',                      type: 'text' },
+  { key: 'whatsapp_display', label: 'WhatsApp (exibição)',                       type: 'text' },
+  { key: 'whatsapp_texto',   label: 'Mensagem padrão do WhatsApp',               type: 'text' },
+  { key: 'email',            label: 'E-mail de contato',                         type: 'email' },
+  { key: 'instagram',        label: 'Instagram (sem @)',                          type: 'text' },
 ];
 
 function renderSiteConfig() {
@@ -1110,106 +670,67 @@ function renderSiteConfig() {
     <div class="cfg-group">
       <label>${f.label}</label>
       <div class="cfg-row">
-        ${f.type === 'textarea'
-          ? `<textarea id="cfg-${f.key}" rows="3">${escHtml(String(siteConfig[f.key] || ''))}</textarea>`
-          : `<input type="${f.type}" id="cfg-${f.key}" value="${escHtml(String(siteConfig[f.key] || '')).replace(/"/g,'&quot;')}">`
-        }
-        <button class="btn-cfg-save" title="Salvar" onclick="saveConfig('${f.key}')">💾</button>
+        ${f.type === 'textarea' ? `<textarea id="cfg-${f.key}" rows="3">${escHtml(String(siteConfig[f.key]||''))}</textarea>` : `<input type="${f.type}" id="cfg-${f.key}" value="${escHtml(String(siteConfig[f.key]||'')).replace(/"/g,'&quot;')}">`}
+        <button class="btn-cfg-save" onclick="saveConfig('${f.key}')">💾</button>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
-async function saveConfig(chave) {
-  const el = document.getElementById('cfg-' + chave);
-  const valor = el.value;
-  const res = await apiPost({ action: 'updateConfig', token: adminToken, chave, valor });
-  if (res.success) {
-    siteConfig[chave] = valor;
-    applyConfig(siteConfig);
-    toast('Salvo! ✅', 'success');
-  } else { toast(res.error || 'Erro ao salvar', 'error'); }
-}
-
-// ─── Categorias admin ────────────────────────
-async function loadAdminCats() {
+window.saveConfig = async function(chave) {
+  const valor = document.getElementById('cfg-'+chave).value;
   try {
-    catsList = await apiGet({ action: 'categorias' });
-    renderAdminCats();
-  } catch (_) { toast('Erro ao carregar categorias', 'error'); }
+    await setDoc(doc(db, 'config', chave), { valor });
+    siteConfig[chave] = valor; applyConfig(siteConfig);
+    toast('Salvo! ✅', 'success');
+  } catch (e) { toast('Erro ao salvar', 'error'); }
+};
+
+// ── CATEGORIAS ────────────────────────────────
+async function loadAdminCats() {
+  try { catsList = await getCategorias(); renderAdminCats(); }
+  catch (_) { toast('Erro ao carregar categorias', 'error'); }
 }
 
 function renderAdminCats() {
   const el = document.getElementById('admin-cats-list');
   if (!catsList.length) { el.innerHTML = '<p class="a-empty">Sem categorias. Adicione abaixo.</p>'; return; }
-  el.innerHTML = catsList.map(c => `
-    <div class="cat-admin-item">
-      <span class="cat-admin-emoji">${c.emoji}</span>
-      <span class="cat-admin-nome">${c.nome}</span>
-      <button class="btn-del-cat" onclick="delCat('${c.id}')">🗑️ Excluir</button>
-    </div>
-  `).join('');
+  el.innerHTML = catsList.map(c => `<div class="cat-admin-item"><span class="cat-admin-emoji">${c.emoji}</span><span class="cat-admin-nome">${c.nome}</span><button class="btn-del-cat" onclick="delCat('${c.id}')">🗑️ Excluir</button></div>`).join('');
 }
 
-async function addCat() {
+window.addCat = async function() {
   const emoji = document.getElementById('new-cat-emoji').value.trim() || '✨';
   const nome  = document.getElementById('new-cat-nome').value.trim();
   if (!nome) { toast('Digite o nome da categoria', 'error'); return; }
-  const res = await apiPost({ action: 'addCategoria', token: adminToken, nome, emoji });
-  if (res.success) {
-    catsList.push({ id: res.id, nome, emoji });
-    renderAdminCats();
-    document.getElementById('new-cat-nome').value  = '';
+  try {
+    const ref = await addDoc(collection(db, 'categorias'), { nome, emoji });
+    catsList.push({ id: ref.id, nome, emoji }); renderAdminCats();
+    document.getElementById('new-cat-nome').value = '';
     document.getElementById('new-cat-emoji').value = '';
-    toast('Categoria adicionada! ✅', 'success');
-    carregarFotos();
-  } else { toast(res.error || 'Erro', 'error'); }
-}
+    toast('Categoria adicionada! ✅', 'success'); carregarFotos();
+  } catch (e) { toast('Erro ao adicionar categoria', 'error'); }
+};
 
-async function delCat(id) {
-  if (!confirm('Excluir esta categoria? As fotos com ela não serão excluídas.')) return;
-  const res = await apiPost({ action: 'delCategoria', token: adminToken, id });
-  if (res.success) {
-    catsList = catsList.filter(c => c.id !== id);
-    renderAdminCats();
-    toast('Categoria excluída', 'success');
-    carregarFotos();
-  } else { toast(res.error || 'Erro', 'error'); }
-}
+window.delCat = async function(id) {
+  if (!confirm('Excluir esta categoria?')) return;
+  try {
+    await deleteDoc(doc(db, 'categorias', id));
+    catsList = catsList.filter(c => c.id !== id); renderAdminCats();
+    toast('Categoria excluída', 'success'); carregarFotos();
+  } catch (e) { toast('Erro ao excluir categoria', 'error'); }
+};
 
-// ─── Conta ────────────────────────────────────
-async function changePassword() {
-  const atual    = document.getElementById('senha-atual').value;
-  const nova     = document.getElementById('nova-senha').value;
-  const confirma = document.getElementById('confirma-senha').value;
-  if (!atual || !nova || !confirma) { toast('Preencha todos os campos', 'error'); return; }
-  if (nova !== confirma) { toast('As novas senhas não conferem', 'error'); return; }
-  if (nova.length < 6)   { toast('A nova senha deve ter ao menos 6 caracteres', 'error'); return; }
-  const res = await apiPost({ action: 'updateSenha', token: adminToken, senhaAtual: atual, novaSenha: nova });
-  if (res.success) {
-    toast('Senha alterada com sucesso! ✅', 'success');
-    ['senha-atual','nova-senha','confirma-senha'].forEach(id => document.getElementById(id).value = '');
-  } else { toast(res.error || 'Erro ao alterar senha', 'error'); }
-}
-
-// ─── Toast ────────────────────────────────────
-function toast(msg, type) {
+// ── UTILS ─────────────────────────────────────
+window.toast = function(msg, type) {
   const el = document.createElement('div');
-  el.className = 'toast' + (type ? ' t-' + type : '');
+  el.className = 'toast' + (type ? ' t-'+type : '');
   el.textContent = msg;
   document.body.appendChild(el);
-  requestAnimationFrame(() => {
-    el.classList.add('show');
-    setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 350); }, 3200);
-  });
-}
+  requestAnimationFrame(() => { el.classList.add('show'); setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 350); }, 3200); });
+};
 
-// ─── Utilitário ───────────────────────────────
-function escHtml(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
+function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-// ─── Floating emojis ─────────────────────────
+// ── FLOATING EMOJIS ───────────────────────────
 (function() {
   const EMOJIS = ['✏️','📖','📝','🎂','🎀','🎁','🖊️','📚','🌸','🎊','🎉','🍰','✨','💕','🎈','🖍️','📓','💝','🌷','🎗️','🎪','🌺'];
   const bg = document.getElementById('floating-bg');
@@ -1217,37 +738,20 @@ function escHtml(s) {
     const el = document.createElement('span');
     el.className = 'floating-emoji';
     el.textContent = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
-    const size = (Math.random() * 20 + 14).toFixed(0);
-    const dur  = (Math.random() * 22 + 14).toFixed(1);
-    el.style.cssText = [
-      'font-size:' + size + 'px',
-      'left:' + (Math.random() * 98).toFixed(1) + 'vw',
-      'animation-duration:' + dur + 's',
-      'animation-delay:-' + (Math.random() * parseFloat(dur)).toFixed(1) + 's',
-      'animation-fill-mode:both',
-      '--sway:' + ((Math.random() - 0.5) * 140).toFixed(0) + 'px',
-      '--rot:'  + ((Math.random() - 0.5) * 420).toFixed(0) + 'deg',
-      '--op:'   + (Math.random() * 0.28 + 0.07).toFixed(2)
-    ].join(';');
+    const size = (Math.random()*20+14).toFixed(0), dur = (Math.random()*22+14).toFixed(1);
+    el.style.cssText = ['font-size:'+size+'px','left:'+(Math.random()*98).toFixed(1)+'vw','animation-duration:'+dur+'s','animation-delay:-'+(Math.random()*parseFloat(dur)).toFixed(1)+'s','animation-fill-mode:both','--sway:'+((Math.random()-0.5)*140).toFixed(0)+'px','--rot:'+((Math.random()-0.5)*420).toFixed(0)+'deg','--op:'+(Math.random()*0.28+0.07).toFixed(2)].join(';');
     bg.appendChild(el);
-    setTimeout(() => el.parentNode && el.parentNode.removeChild(el), (parseFloat(dur) + 3) * 1000);
+    setTimeout(() => el.parentNode && el.parentNode.removeChild(el), (parseFloat(dur)+3)*1000);
   }
   for (let i = 0; i < 28; i++) spawn();
   setInterval(spawn, 1100);
 })();
 
-// ─── Nav scroll ───────────────────────────────
-window.addEventListener('scroll', () => {
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
-}, { passive: true });
+window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); }, { passive: true });
 
-// ─── Fade-in ──────────────────────────────────
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-}, { threshold: 0.12 });
+const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }); }, { threshold: 0.12 });
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-// ─── Init ─────────────────────────────────────
 carregarConfig();
 carregarFotos();
 </script>
