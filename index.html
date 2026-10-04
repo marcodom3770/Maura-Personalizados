@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Maura Personalizados</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,9 +16,13 @@
       --card-bg: rgba(255,255,255,0.88);
       --shadow-soft: 0 8px 32px rgba(200,79,124,0.12);
       --shadow-hover: 0 18px 52px rgba(200,79,124,0.22);
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bot: env(safe-area-inset-bottom, 0px);
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Poppins', sans-serif; background: var(--rose-white); color: var(--text-dark); overflow-x: hidden; }
+
+    /* ─── FLOATING BG ─── */
     #floating-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
     .floating-emoji { position: absolute; bottom: -70px; animation: floatUp linear; pointer-events: none; user-select: none; line-height: 1; will-change: transform, opacity; }
     @keyframes floatUp {
@@ -26,14 +30,24 @@
       8%   { opacity: var(--op); } 92%  { opacity: var(--op); }
       100% { transform: translateY(calc(-100vh - 80px)) rotate(var(--rot)) translateX(var(--sway)); opacity: 0; }
     }
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 15px 40px; background: rgba(255,240,245,0.92); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,182,200,0.35); transition: box-shadow 0.3s; }
-    nav.scrolled { box-shadow: 0 4px 24px rgba(200,79,124,0.13); }
+
+    /* ════════════════════════════════════════════
+       DESKTOP NAV
+    ════════════════════════════════════════════ */
+    nav#navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 15px 40px; background: rgba(255,240,245,0.92); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,182,200,0.35); transition: box-shadow 0.3s; }
+    nav#navbar.scrolled { box-shadow: 0 4px 24px rgba(200,79,124,0.13); }
     .nav-logo { font-family: 'Dancing Script', cursive; font-size: 1.65rem; font-weight: 700; color: var(--deep-rose); text-decoration: none; }
     .nav-links { display: flex; gap: 26px; list-style: none; align-items: center; }
     .nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
     .nav-links a:hover { color: var(--deep-rose); }
     .nav-admin { background: linear-gradient(135deg, var(--rose), var(--deep-rose)); color: #fff; padding: 9px 22px; border-radius: 50px; border: none; font-weight: 600; cursor: pointer; box-shadow: 0 4px 18px rgba(200,79,124,0.38); transition: transform 0.2s, box-shadow 0.2s; font-family: 'Poppins', sans-serif; font-size: 0.85rem; }
     .nav-admin:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(200,79,124,0.48); }
+    /* hamburger — hidden on desktop */
+    .nav-hamburger { display: none; }
+
+    /* ════════════════════════════════════════════
+       DESKTOP SECTIONS
+    ════════════════════════════════════════════ */
     #inicio { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 130px 24px 90px; background: linear-gradient(160deg, #FFF0F5 0%, #FFE4EE 45%, #FFF7FA 100%); }
     .hero-eyebrow { font-family: 'Dancing Script', cursive; font-size: 1.35rem; color: var(--rose); margin-bottom: 14px; }
     .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 7vw, 5.6rem); font-weight: 700; color: var(--text-dark); line-height: 1.1; margin-bottom: 10px; }
@@ -41,10 +55,11 @@
     .hero-subtitle { font-family: 'Playfair Display', serif; font-size: clamp(1.05rem, 2.4vw, 1.45rem); font-style: italic; color: var(--text-mid); margin-bottom: 28px; max-width: 560px; }
     .hero-desc { font-size: 0.95rem; color: var(--text-light); max-width: 520px; line-height: 1.75; margin-bottom: 40px; font-weight: 300; }
     .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 48px; }
-    .badge { background: white; border: 1.5px solid var(--blush); color: var(--text-mid); padding: 7px 18px; border-radius: 50px; font-size: 0.82rem; font-weight: 500; box-shadow: 0 2px 14px rgba(200,79,124,0.08); transition: transform 0.2s; }
+    .badge { background: white; border: 1.5px solid var(--blush); color: var(--text-mid); padding: 7px 18px; border-radius: 50px; font-size: 0.82rem; font-weight: 500; box-shadow: 0 2px 14px rgba(200,79,124,0.08); }
     .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
     .btn-primary { background: linear-gradient(135deg, var(--rose), var(--deep-rose)); color: white; padding: 15px 38px; border-radius: 50px; font-size: 0.95rem; font-weight: 600; text-decoration: none; border: none; box-shadow: 0 6px 26px rgba(200,79,124,0.42); transition: transform 0.2s, box-shadow 0.2s; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-family: 'Poppins', sans-serif; }
     .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(200,79,124,0.52); }
+
     #categorias { position: relative; z-index: 1; padding: 80px 24px; background: white; }
     .section-title { font-family: 'Playfair Display', serif; text-align: center; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; color: var(--text-dark); margin-bottom: 28px; }
     .section-subtitle { text-align: center; color: var(--text-light); font-size: 1rem; margin-bottom: 50px; max-width: 580px; margin-left: auto; margin-right: auto; }
@@ -52,6 +67,7 @@
     .cat-card { background: var(--card-bg); border-radius: 16px; padding: 24px; text-align: center; cursor: pointer; transition: all 0.3s; box-shadow: var(--shadow-soft); border: 2px solid transparent; }
     .cat-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); border-color: var(--blush); }
     .cat-icon { font-size: 2.8rem; margin-bottom: 12px; } .cat-name { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; } .cat-desc { font-size: 0.88rem; color: var(--text-light); line-height: 1.6; }
+
     #galeria { position: relative; z-index: 1; padding: 80px 24px; background: linear-gradient(180deg, #FFF0F5 0%, white 50%, #FFF0F5 100%); }
     #filter-tabs { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 50px; }
     .filter-btn { background: white; color: var(--text-mid); border: 2px solid var(--blush); padding: 10px 22px; border-radius: 50px; font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'Poppins', sans-serif; }
@@ -71,23 +87,32 @@
     .cat-chip { display: inline-block; background: var(--blush-light); color: var(--rose); padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; width: fit-content; }
     .empty-gallery { text-align: center; padding: 60px 24px; color: var(--text-light); }
     .empty-gallery .big { font-size: 3.5rem; display: block; margin-bottom: 16px; }
+
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
+
     #contato { position: relative; z-index: 1; padding: 80px 24px; background: white; }
     .contact-wrapper { max-width: 700px; margin: 0 auto; }
     .contact-btns { display: flex; flex-direction: column; gap: 16px; margin-bottom: 60px; }
     .contact-btn { display: flex; align-items: center; gap: 20px; padding: 24px; background: var(--card-bg); border-radius: 12px; text-decoration: none; color: var(--text-dark); box-shadow: var(--shadow-soft); transition: all 0.3s; border: 2px solid transparent; }
     .contact-btn:hover { transform: translateX(8px); box-shadow: var(--shadow-hover); border-color: var(--blush); }
     .cbtn-icon { font-size: 2.2rem; flex-shrink: 0; } .cbtn-main { font-weight: 600; font-size: 1rem; } .cbtn-sub { font-size: 0.85rem; color: var(--text-mid); margin-top: 4px; }
+
     footer { position: relative; z-index: 1; background: var(--text-dark); color: white; padding: 40px 24px; text-align: center; }
     .footer-logo { display: block; font-family: 'Dancing Script', cursive; font-size: 1.4rem; margin-bottom: 16px; }
     .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 16px; font-size: 0.9rem; }
     .footer-links a { color: #FFB6C8; text-decoration: none; transition: color 0.2s; } .footer-links a:hover { color: white; }
     footer p { font-size: 0.85rem; opacity: 0.8; }
+
+    /* ─── MODAL ─── */
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 4000; justify-content: center; align-items: center; padding: 20px; }
     .modal-overlay.open { display: flex; }
     .modal-img { max-width: 90vw; max-height: 85vh; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
     .modal-close { position: absolute; top: 20px; right: 20px; width: 44px; height: 44px; background: white; border: none; border-radius: 50%; font-size: 1.4rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+    /* ════════════════════════════════════════════
+       ADMIN — DESKTOP
+    ════════════════════════════════════════════ */
     #admin-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 5000; align-items: center; justify-content: center; padding: 16px; }
     #admin-overlay.open { display: flex; }
     .admin-shell { background: #fff; width: min(880px, 97vw); height: min(90vh, 800px); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 30px 80px rgba(0,0,0,0.4); }
@@ -116,6 +141,7 @@
     .a-section-desc { font-size: 0.88rem; color: var(--text-light); margin-bottom: 24px; line-height: 1.6; }
     .a-loading { color: var(--text-light); font-size: 0.9rem; text-align: center; padding: 40px; }
     .a-empty   { color: var(--text-light); font-size: 0.9rem; text-align: center; padding: 32px; }
+
     .dropzone { border: 2.5px dashed var(--blush); border-radius: 16px; padding: 50px 24px; text-align: center; cursor: pointer; transition: all 0.2s; background: var(--rose-white); }
     .dropzone:hover, .dropzone.dz-over { border-color: var(--rose); background: var(--blush-light); }
     .dz-icon { font-size: 3rem; display: block; margin-bottom: 12px; } .dz-text { font-size: 1rem; font-weight: 600; color: var(--text-mid); margin-bottom: 6px; } .dz-sub { font-size: 0.82rem; color: var(--text-light); }
@@ -125,6 +151,7 @@
     .fi-name { flex: 1; font-size: 0.88rem; color: var(--text-dark); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .fi-size { font-size: 0.8rem; color: var(--text-light); flex-shrink: 0; } .fi-status { font-size: 1.1rem; flex-shrink: 0; width: 24px; text-align: center; }
     .btn-upload-all { width: 100%; background: linear-gradient(135deg, var(--rose), var(--deep-rose)); color: white; border: none; border-radius: 10px; padding: 13px; font-family: 'Poppins', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
     .btn-upload-all:hover { opacity: 0.9; } .btn-upload-all:disabled { opacity: 0.5; cursor: not-allowed; }
+
     .pending-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
     .pending-card { background: #fff8fa; border: 1.5px solid var(--blush); border-radius: 14px; overflow: hidden; }
     .pending-thumb { width: 100%; height: 180px; object-fit: cover; display: block; background: var(--blush-light); }
@@ -135,6 +162,7 @@
     .btn-publicar { flex: 1; background: linear-gradient(135deg, #4CAF50, #388E3C); color: white; border: none; border-radius: 8px; padding: 9px; font-family: 'Poppins', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
     .btn-descartar { background: #fff; border: 1.5px solid #f0e0e8; border-radius: 8px; padding: 9px 12px; cursor: pointer; font-size: 1rem; transition: background 0.2s; }
     .btn-descartar:hover { background: #fff0f0; }
+
     .pub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
     .pub-card { background: white; border: 1.5px solid var(--blush); border-radius: 12px; overflow: hidden; }
     .pub-card img { width: 100%; height: 160px; object-fit: cover; display: block; }
@@ -142,6 +170,7 @@
     .pub-desc { font-size: 0.85rem; color: var(--text-dark); margin-bottom: 10px; line-height: 1.4; }
     .btn-del-pub { width: 100%; background: #fff0f0; border: 1px solid #f8c8c8; color: #c94f4f; border-radius: 7px; padding: 7px; font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; transition: background 0.2s; }
     .btn-del-pub:hover { background: #ffe0e0; }
+
     .config-form { display: flex; flex-direction: column; gap: 18px; max-width: 600px; }
     .cfg-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-mid); margin-bottom: 6px; }
     .cfg-row { display: flex; gap: 10px; align-items: flex-start; }
@@ -150,6 +179,7 @@
     .cfg-row input:focus, .cfg-row textarea:focus { border-color: var(--rose); }
     .btn-cfg-save { flex-shrink: 0; background: var(--rose); color: white; border: none; border-radius: 8px; padding: 10px 16px; font-size: 1rem; cursor: pointer; transition: background 0.2s; align-self: stretch; }
     .btn-cfg-save:hover { background: var(--deep-rose); }
+
     .cats-admin-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
     .cat-admin-item { display: flex; align-items: center; gap: 12px; background: #fff8fa; border: 1.5px solid var(--blush); border-radius: 10px; padding: 12px 16px; }
     .cat-admin-emoji { font-size: 1.5rem; } .cat-admin-nome { flex: 1; font-weight: 600; color: var(--text-dark); }
@@ -158,27 +188,344 @@
     .add-cat-form { display: flex; gap: 10px; align-items: center; }
     .add-cat-emoji { width: 70px; text-align: center; font-size: 1.1rem; } .add-cat-nome { flex: 1; }
     .btn-add-cat { flex-shrink: 0; background: linear-gradient(135deg, var(--rose), var(--deep-rose)); color: white; border: none; border-radius: 8px; padding: 10px 18px; font-family: 'Poppins', sans-serif; font-size: 0.88rem; font-weight: 600; cursor: pointer; }
+
+    /* ─── TOAST ─── */
     .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(120px); background: #333; color: white; padding: 12px 26px; border-radius: 50px; font-size: 0.9rem; font-weight: 500; z-index: 9999; transition: transform 0.3s ease; white-space: nowrap; pointer-events: none; }
     .toast.show { transform: translateX(-50%) translateY(0); }
     .toast.t-success { background: #2a9d6f; } .toast.t-error { background: #c94f4f; } .toast.t-info { background: #5b8fd1; }
+
+    /* ════════════════════════════════════════════
+       MOBILE — layout completamente diferente
+    ════════════════════════════════════════════ */
     @media (max-width: 768px) {
-      nav { padding: 12px 20px; flex-direction: column; gap: 10px; }
-      .nav-links { gap: 14px; flex-wrap: wrap; justify-content: center; }
-      #inicio { padding: 100px 20px 60px; }
-      #categorias, #galeria, #contato { padding: 50px 20px; }
-      .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
-      .photo-card img { height: 160px; }
-      .admin-shell { height: 97vh; border-radius: 14px; }
+
+      /* ── MOBILE NAV ── */
+      nav#navbar {
+        padding: 0;
+        flex-direction: row;
+        gap: 0;
+        height: 58px;
+        padding-top: var(--safe-top);
+      }
+      .nav-logo {
+        padding: 0 16px;
+        font-size: 1.4rem;
+        flex: 1;
+      }
+      /* hide desktop links */
+      .nav-links { display: none; }
+      .nav-admin { display: none; }
+
+      /* show hamburger */
+      .nav-hamburger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        width: 58px;
+        height: 58px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        flex-shrink: 0;
+      }
+      .ham-line {
+        width: 24px; height: 2.5px;
+        background: var(--deep-rose);
+        border-radius: 2px;
+        transition: all 0.3s;
+        display: block;
+      }
+      .nav-hamburger.open .ham-line:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+      .nav-hamburger.open .ham-line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+      .nav-hamburger.open .ham-line:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+      /* ── MOBILE MENU DRAWER ── */
+      #mobile-menu {
+        display: none;
+        position: fixed;
+        top: calc(58px + var(--safe-top));
+        left: 0; right: 0;
+        background: rgba(255,240,245,0.98);
+        backdrop-filter: blur(20px);
+        z-index: 999;
+        padding: 20px 0 30px;
+        border-bottom: 1px solid var(--blush);
+        box-shadow: 0 10px 40px rgba(200,79,124,0.15);
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+      #mobile-menu.open { display: flex; }
+      .mob-menu-link {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 32px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        text-decoration: none;
+        transition: background 0.15s;
+      }
+      .mob-menu-link:active { background: var(--blush-light); }
+      .mob-menu-link span { font-size: 1.4rem; }
+      .mob-menu-divider { width: calc(100% - 64px); height: 1px; background: var(--blush); margin: 8px 0; }
+      .mob-admin-btn {
+        margin-top: 8px;
+        background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 14px 36px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 6px 24px rgba(200,79,124,0.4);
+      }
+
+      /* ── MOBILE HERO ── */
+      #inicio {
+        padding: calc(58px + var(--safe-top) + 28px) 20px 48px;
+        min-height: 100svh;
+        justify-content: flex-start;
+        padding-top: calc(58px + var(--safe-top) + 36px);
+      }
+      .hero-eyebrow { font-size: 1.1rem; margin-bottom: 10px; }
+      .hero-title { font-size: 2.8rem; line-height: 1.1; margin-bottom: 12px; }
+      .hero-subtitle { font-size: 1rem; margin-bottom: 18px; }
+      .hero-desc { font-size: 0.9rem; margin-bottom: 24px; }
+      .hero-badges {
+        gap: 8px;
+        margin-bottom: 32px;
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 4px;
+        width: 100%;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .hero-badges::-webkit-scrollbar { display: none; }
+      .badge { flex-shrink: 0; }
+      .hero-btns { flex-direction: column; width: 100%; }
+      .btn-primary { justify-content: center; padding: 16px 24px; font-size: 1rem; width: 100%; }
+
+      /* ── MOBILE CATEGORIES ── */
+      #categorias { padding: 48px 0; }
+      #categorias .section-title,
+      #categorias .section-subtitle { padding: 0 20px; }
+      #categorias .section-subtitle { margin-bottom: 28px; }
+      .categorias-grid {
+        display: flex;
+        gap: 16px;
+        overflow-x: auto;
+        padding: 0 20px 12px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        grid-template-columns: none;
+      }
+      .categorias-grid::-webkit-scrollbar { display: none; }
+      .cat-card {
+        flex-shrink: 0;
+        width: 160px;
+        border-radius: 20px;
+        padding: 20px 16px;
+        border: 2px solid var(--blush);
+      }
+      .cat-card:hover { transform: none; }
+      .cat-card:active { transform: scale(0.97); background: var(--blush-light); }
+      .cat-icon { font-size: 2.2rem; margin-bottom: 8px; }
+      .cat-name { font-size: 1rem; margin-bottom: 4px; }
+      .cat-desc { font-size: 0.8rem; }
+
+      /* ── MOBILE GALLERY ── */
+      #galeria { padding: 48px 0 64px; }
+      #galeria .section-title,
+      #galeria .section-subtitle { padding: 0 20px; }
+      #filter-tabs {
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding: 0 20px 4px;
+        gap: 10px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        margin-bottom: 24px;
+      }
+      #filter-tabs::-webkit-scrollbar { display: none; }
+      .filter-btn { flex-shrink: 0; padding: 9px 18px; font-size: 0.84rem; }
+      #gallery-container { padding: 0 16px; }
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .photo-card { border-radius: 14px; }
+      .photo-card img { height: 180px; }
+      /* on mobile, overlay shows on tap via JS class */
+      .photo-overlay { opacity: 0; transition: opacity 0.2s; border-radius: 0; }
+      .photo-card.tapped .photo-overlay { opacity: 1; }
+      .overlay-cat { font-size: 0.72rem; }
+      .overlay-name { font-size: 0.95rem; }
+      .photo-info { padding: 10px; }
+      .photo-info h3 { font-size: 0.82rem; margin-bottom: 6px; }
+
+      /* ── MOBILE CONTACT ── */
+      #contato { padding: 48px 20px 80px; }
+      .contact-btn { padding: 18px; border-radius: 14px; }
+      .contact-btn:hover { transform: none; }
+      .contact-btn:active { transform: scale(0.98); background: var(--blush-light); }
+      .cbtn-icon { font-size: 2rem; }
+
+      /* ── MOBILE FOOTER ── */
+      footer { padding: 32px 20px calc(80px + var(--safe-bot)); }
+
+      /* ── MOBILE ADMIN ── */
+      #admin-overlay { padding: 0; align-items: flex-end; background: rgba(0,0,0,0.5); }
+      .admin-shell {
+        width: 100%;
+        height: 96svh;
+        border-radius: 24px 24px 0 0;
+        position: relative;
+      }
+      .admin-login-wrap { padding: 32px 24px; }
+      .admin-login-wrap h2 { font-size: 1.7rem; }
+      .adm-input { padding: 14px 16px; font-size: 1rem; border-radius: 12px; }
+      .btn-adm-login { padding: 15px; font-size: 1rem; border-radius: 12px; }
+
+      /* topbar */
+      .admin-topbar { padding: 12px 16px; }
+      .admin-topbar .a-logo { font-size: 1.2rem; }
+      .btn-a-close { padding: 8px 14px; font-size: 0.82rem; }
+
+      /* ADMIN — bottom tab bar on mobile */
+      .admin-tabs-nav {
+        order: 10; /* push to bottom */
+        border-top: 1.5px solid #f0e0e8;
+        border-bottom: none;
+        padding-bottom: var(--safe-bot);
+        background: white;
+      }
+      #admin-dashboard {
+        flex-direction: column;
+      }
+      .a-tab {
+        flex: 1;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 4px;
+        border-bottom: none;
+        border-top: 3px solid transparent;
+        margin-bottom: 0;
+        margin-top: -1.5px;
+        font-size: 0.7rem;
+        gap: 2px;
+        min-width: 0;
+      }
+      .a-tab.active { border-top-color: var(--deep-rose); border-bottom: none; }
+      .a-badge { width: 16px; height: 16px; font-size: 0.65rem; margin-left: 0; margin-top: -16px; margin-right: -10px; align-self: flex-end; }
       .admin-body { padding: 16px; }
-      .pending-grid { grid-template-columns: 1fr; }
-      .pub-grid { grid-template-columns: repeat(2, 1fr); }
+
+      /* UPLOAD — mobile friendly */
+      .dropzone { padding: 32px 16px; border-radius: 20px; }
+      .dz-icon { font-size: 3.5rem; }
+      .dz-text { font-size: 1.1rem; }
+      /* mobile upload choice buttons */
+      .mob-upload-btns { display: flex; gap: 12px; margin-top: 16px; }
+      .mob-upload-btn {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding: 18px 12px;
+        border: 2px solid var(--blush);
+        border-radius: 16px;
+        background: white;
+        cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+        color: var(--text-mid);
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: all 0.2s;
+      }
+      .mob-upload-btn:active { background: var(--blush-light); border-color: var(--rose); }
+      .mob-upload-btn span { font-size: 2rem; }
+
+      .file-item { padding: 12px 14px; border-radius: 12px; }
+      .fi-name { font-size: 0.82rem; }
+      .btn-upload-all { padding: 16px; font-size: 1rem; border-radius: 14px; }
+
+      /* PENDENTES — full-width cards on mobile */
+      .pending-grid { grid-template-columns: 1fr; gap: 16px; }
+      .pending-card { border-radius: 18px; }
+      .pending-thumb { height: 220px; }
+      .pending-form { padding: 16px; gap: 12px; }
+      .pending-form input, .pending-form select {
+        padding: 13px 14px;
+        font-size: 1rem;
+        border-radius: 12px;
+      }
+      .btn-publicar { padding: 14px; font-size: 0.95rem; border-radius: 12px; }
+      .btn-descartar { padding: 14px 16px; border-radius: 12px; font-size: 1.2rem; }
+
+      /* PUBLICADAS — 2 col on mobile */
+      .pub-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .pub-card img { height: 130px; }
+      .pub-info { padding: 10px; }
+      .pub-desc { font-size: 0.8rem; }
+      .btn-del-pub { padding: 8px; font-size: 0.8rem; border-radius: 8px; }
+
+      /* CONFIG — mobile */
+      .cfg-row { flex-direction: column; gap: 8px; }
+      .btn-cfg-save { align-self: flex-end; padding: 10px 20px; }
+      .cfg-row input, .cfg-row textarea {
+        padding: 13px 14px;
+        font-size: 1rem;
+        border-radius: 12px;
+      }
+
+      /* CATS — mobile */
+      .cat-admin-item { padding: 14px 16px; border-radius: 14px; }
       .add-cat-form { flex-wrap: wrap; }
+      .add-cat-emoji { flex: 0 0 70px; padding: 13px; font-size: 1.1rem; border-radius: 12px; }
+      .add-cat-nome { flex: 1; padding: 13px 14px; font-size: 1rem; border-radius: 12px; min-width: 120px; }
+      .btn-add-cat { width: 100%; padding: 13px; border-radius: 12px; font-size: 0.95rem; }
+
+      /* modal on mobile */
+      .modal-overlay { padding: 0; align-items: flex-end; }
+      .modal-img { max-width: 100%; max-height: 90svh; border-radius: 20px 20px 0 0; }
+      .modal-close { top: auto; bottom: calc(90svh + 10px); right: 16px; width: 40px; height: 40px; }
+
+      /* section spacing */
+      .section-title { font-size: 1.9rem; margin-bottom: 10px; }
+      .section-subtitle { font-size: 0.9rem; margin-bottom: 28px; }
+
+      /* toast at top on mobile (away from bottom nav) */
+      .toast { bottom: auto; top: calc(var(--safe-top) + 70px); }
+      .toast.show { transform: translateX(-50%) translateY(0); }
+      .toast { transform: translateX(-50%) translateY(-120px); }
+    }
+
+    /* extra small phones */
+    @media (max-width: 380px) {
+      .hero-title { font-size: 2.3rem; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .photo-card img { height: 150px; }
     }
   </style>
 </head>
 <body>
 <div id="floating-bg"></div>
 
+<!-- ── NAV ── -->
 <nav id="navbar">
   <a href="#inicio" class="nav-logo" id="nav-logo">🌸 Maura</a>
   <ul class="nav-links">
@@ -188,8 +535,25 @@
     <li><a href="#contato">Contato</a></li>
   </ul>
   <button class="nav-admin" onclick="openAdmin()">⚙️ Admin</button>
+  <!-- mobile hamburger -->
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu" onclick="toggleMobileMenu()">
+    <span class="ham-line"></span>
+    <span class="ham-line"></span>
+    <span class="ham-line"></span>
+  </button>
 </nav>
 
+<!-- ── MOBILE MENU DRAWER ── -->
+<div id="mobile-menu">
+  <a href="#inicio"     class="mob-menu-link" onclick="closeMobileMenu()"><span>🏠</span> Início</a>
+  <a href="#categorias" class="mob-menu-link" onclick="closeMobileMenu()"><span>🛍️</span> Produtos</a>
+  <a href="#galeria"    class="mob-menu-link" onclick="closeMobileMenu()"><span>📸</span> Portfólio</a>
+  <a href="#contato"    class="mob-menu-link" onclick="closeMobileMenu()"><span>💬</span> Contato</a>
+  <div class="mob-menu-divider"></div>
+  <button class="mob-admin-btn" onclick="closeMobileMenu(); openAdmin()">⚙️ Painel Admin</button>
+</div>
+
+<!-- ── HERO ── -->
 <section id="inicio">
   <div class="hero-eyebrow">✨ Bem-vindo ao nosso portfólio</div>
   <h1 class="hero-title" id="hero-titulo-el">Personalizados com <em>Amor</em></h1>
@@ -203,12 +567,14 @@
   <div class="hero-btns"><a href="#galeria" class="btn-primary">✨ Ver Portfólio</a></div>
 </section>
 
+<!-- ── CATEGORIAS ── -->
 <section id="categorias">
   <div class="section-title fade-in">Nossos Serviços</div>
   <p class="section-subtitle fade-in">Explore as categorias dos nossos trabalhos incríveis</p>
   <div class="categorias-grid" id="cats-section-grid"></div>
 </section>
 
+<!-- ── GALERIA ── -->
 <section id="galeria">
   <div class="section-title fade-in">Nosso Portfólio</div>
   <p class="section-subtitle fade-in">Veja os trabalhos que já realizamos com dedicação</p>
@@ -216,6 +582,7 @@
   <div id="gallery-container"></div>
 </section>
 
+<!-- ── CONTATO ── -->
 <section id="contato">
   <div class="section-title fade-in">Entre em Contato</div>
   <div class="contact-wrapper fade-in">
@@ -245,11 +612,13 @@
   <p>Feito com 💕 e muito carinho · Todos os direitos reservados</p>
 </footer>
 
+<!-- ── MODAL ── -->
 <div class="modal-overlay" id="modal" onclick="closeModal(event)">
   <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">✕</button>
   <img class="modal-img" id="modal-img" src="" alt="Foto ampliada">
 </div>
 
+<!-- ── ADMIN ── -->
 <div id="admin-overlay">
   <div class="admin-shell" style="position:relative">
     <div id="admin-login-screen">
@@ -268,16 +637,10 @@
       <div class="admin-topbar">
         <span class="a-logo">🌸 Painel Admin</span>
         <button class="btn-a-close" onclick="doLogout()">Sair</button>
-        <button class="btn-a-close" onclick="closeAdmin()">✕ Fechar</button>
-      </div>
-      <div class="admin-tabs-nav">
-        <button class="a-tab active" data-tab="upload"     onclick="showTab('upload')">📤 Upload</button>
-        <button class="a-tab"        data-tab="pendentes"  onclick="showTab('pendentes')">⏳ Pendentes <span class="a-badge" id="badge-pendentes" style="display:none">0</span></button>
-        <button class="a-tab"        data-tab="publicadas" onclick="showTab('publicadas')">🖼️ Publicadas</button>
-        <button class="a-tab"        data-tab="site"       onclick="showTab('site')">⚙️ Site</button>
-        <button class="a-tab"        data-tab="categorias" onclick="showTab('categorias')">🏷️ Categorias</button>
+        <button class="btn-a-close" onclick="closeAdmin()">✕</button>
       </div>
       <div class="admin-body">
+        <!-- UPLOAD -->
         <div class="a-pane active" id="tab-upload">
           <h3 class="a-section-title">Enviar Fotos</h3>
           <p class="a-section-desc">Selecione as fotos. Elas ficam "Pendentes" até você configurar descrição e categoria.</p>
@@ -287,26 +650,41 @@
             <p class="dz-sub">JPG · PNG · WEBP · qualquer tamanho</p>
             <input type="file" id="file-input" multiple accept="image/*" style="display:none">
           </div>
+          <!-- mobile: extra buttons for camera or gallery -->
+          <div class="mob-upload-btns" id="mob-upload-btns" style="display:none">
+            <button class="mob-upload-btn" onclick="openCamera()">
+              <span>📷</span>Tirar foto
+            </button>
+            <button class="mob-upload-btn" onclick="openGallery()">
+              <span>🖼️</span>Da galeria
+            </button>
+          </div>
+          <input type="file" id="file-input-camera"  accept="image/*" capture="environment" style="display:none" multiple>
+          <input type="file" id="file-input-gallery" accept="image/*" style="display:none" multiple>
           <div id="upload-queue" style="display:none">
             <div class="file-list" id="file-list"></div>
             <button class="btn-upload-all" id="btn-upload-all" onclick="uploadAll()">📤 Enviar fotos</button>
           </div>
         </div>
+        <!-- PENDENTES -->
         <div class="a-pane" id="tab-pendentes">
           <h3 class="a-section-title">Fotos Pendentes</h3>
-          <p class="a-section-desc">Preencha a descrição e a categoria de cada foto e clique em Publicar.</p>
+          <p class="a-section-desc">Preencha a descrição e a categoria e toque em Publicar.</p>
           <div class="pending-grid" id="pendentes-grid"><p class="a-loading">Carregando...</p></div>
         </div>
+        <!-- PUBLICADAS -->
         <div class="a-pane" id="tab-publicadas">
           <h3 class="a-section-title">Fotos Publicadas</h3>
           <p class="a-section-desc">Gerencie as fotos visíveis no site.</p>
           <div class="pub-grid" id="publicadas-grid"><p class="a-loading">Carregando...</p></div>
         </div>
+        <!-- SITE CONFIG -->
         <div class="a-pane" id="tab-site">
           <h3 class="a-section-title">Configurações do Site</h3>
-          <p class="a-section-desc">Edite o campo e clique em 💾 para salvar.</p>
+          <p class="a-section-desc">Edite o campo e toque em 💾 para salvar.</p>
           <div class="config-form" id="site-config-form"></div>
         </div>
+        <!-- CATEGORIAS -->
         <div class="a-pane" id="tab-categorias">
           <h3 class="a-section-title">Categorias</h3>
           <p class="a-section-desc">Adicione ou remova categorias do portfólio.</p>
@@ -318,6 +696,14 @@
             <button class="btn-add-cat" onclick="addCat()">+ Adicionar</button>
           </div>
         </div>
+      </div>
+      <!-- tabs nav (bottom on mobile, top on desktop) -->
+      <div class="admin-tabs-nav">
+        <button class="a-tab active" data-tab="upload"     onclick="showTab('upload')">📤<br>Upload</button>
+        <button class="a-tab"        data-tab="pendentes"  onclick="showTab('pendentes')">⏳<br>Pendentes<span class="a-badge" id="badge-pendentes" style="display:none">0</span></button>
+        <button class="a-tab"        data-tab="publicadas" onclick="showTab('publicadas')">🖼️<br>Publicadas</button>
+        <button class="a-tab"        data-tab="site"       onclick="showTab('site')">⚙️<br>Site</button>
+        <button class="a-tab"        data-tab="categorias" onclick="showTab('categorias')">🏷️<br>Cats</button>
       </div>
     </div>
   </div>
@@ -354,9 +740,35 @@ let allFotos       = [];
 let currentCat     = 'Todos';
 let pendentesCount = 0;
 
+const isMobile = () => window.innerWidth <= 768;
+
 onAuthStateChanged(auth, user => { currentUser = user; });
 
-// ── AUTH ──────────────────────────────────────
+/* ── MOBILE MENU ─────────────────────────────── */
+window.toggleMobileMenu = function() {
+  const btn  = document.getElementById('hamburger');
+  const menu = document.getElementById('mobile-menu');
+  const open = menu.classList.toggle('open');
+  btn.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+};
+window.closeMobileMenu = function() {
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.body.style.overflow = '';
+};
+
+/* ── MOBILE UPLOAD BUTTONS ───────────────────── */
+window.openCamera  = function() { document.getElementById('file-input-camera').click(); };
+window.openGallery = function() { document.getElementById('file-input-gallery').click(); };
+document.getElementById('file-input-camera').addEventListener('change',  e => addToQueue(Array.from(e.target.files)));
+document.getElementById('file-input-gallery').addEventListener('change', e => addToQueue(Array.from(e.target.files)));
+
+function showMobileUploadBtns() {
+  document.getElementById('mob-upload-btns').style.display = isMobile() ? 'flex' : 'none';
+}
+
+/* ── AUTH ──────────────────────────────────────── */
 window.doLogin = async function() {
   const email = document.getElementById('login-email').value.trim();
   const senha = document.getElementById('login-senha').value;
@@ -369,6 +781,7 @@ window.doLogin = async function() {
     const dash = document.getElementById('admin-dashboard');
     dash.style.cssText = 'display:flex;flex-direction:column;overflow:hidden;flex:1';
     showTab('upload');
+    showMobileUploadBtns();
     loadPendentesBadge();
     toast('Bem-vinda! 🌸', 'success');
   } catch (e) { toast('E-mail ou senha incorretos', 'error'); }
@@ -383,7 +796,7 @@ window.doLogout = async function() {
   closeAdmin();
 };
 
-// ── CLOUDINARY ────────────────────────────────
+/* ── CLOUDINARY ──────────────────────────────── */
 async function uploadToCloudinary(file) {
   const fd = new FormData();
   fd.append('file', file);
@@ -398,7 +811,7 @@ async function uploadToCloudinary(file) {
   };
 }
 
-// ── FIRESTORE ─────────────────────────────────
+/* ── FIRESTORE ───────────────────────────────── */
 async function getConfig() {
   try {
     const snap = await getDocs(collection(db, 'config'));
@@ -407,21 +820,19 @@ async function getConfig() {
     return cfg;
   } catch { return {}; }
 }
-
 async function getCategorias() {
   try {
     const snap = await getDocs(query(collection(db, 'categorias'), orderBy('nome')));
     return snap.docs.map(d => ({ id: d.id, ...d.data() }));
   } catch { return []; }
 }
-
 async function getFotosByStatus(status) {
   const snap = await getDocs(query(collection(db, 'fotos'), where('status', '==', status)));
   return snap.docs.map(d => ({ id: d.id, ...d.data() }))
     .sort((a, b) => (b.created_at || '') > (a.created_at || '') ? 1 : -1);
 }
 
-// ── CONFIG ────────────────────────────────────
+/* ── CONFIG ──────────────────────────────────── */
 async function carregarConfig() {
   try {
     siteConfig = await getConfig();
@@ -451,7 +862,7 @@ function applyConfig(c) {
   if (c.instagram){ href('contact-instagram','https://instagram.com/'+c.instagram); txt('instagram-display','@'+c.instagram); }
 }
 
-// ── GALERIA ───────────────────────────────────
+/* ── GALERIA ─────────────────────────────────── */
 async function carregarFotos() {
   const container = document.getElementById('gallery-container');
   try {
@@ -496,7 +907,7 @@ function buildGallery(fotos) {
     return;
   }
   container.innerHTML = '<div class="gallery-grid">' + filtered.map(f => `
-    <div class="photo-card fade-in" onclick="openModal('${f.url}')">
+    <div class="photo-card fade-in" data-url="${f.url}" onclick="handleCardClick(event, this, '${f.url}')">
       <img src="${f.thumb||f.url}" alt="${f.descricao}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22240%22 height=%22240%22><rect fill=%22%23ffeaef%22 width=%22240%22 height=%22240%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2248%22>📷</text></svg>'">
       <div class="photo-overlay"><div class="overlay-cat">${f.categoria}</div><div class="overlay-name">${f.descricao}</div></div>
       <div class="photo-info"><h3>${f.descricao}</h3><span class="cat-chip">${f.categoria}</span></div>
@@ -504,17 +915,39 @@ function buildGallery(fotos) {
   container.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 }
 
-// ── MODAL ─────────────────────────────────────
+/* Mobile gallery: first tap shows overlay, second tap opens modal */
+window.handleCardClick = function(e, card, url) {
+  if (!isMobile()) { openModal(url); return; }
+  if (card.classList.contains('tapped')) {
+    openModal(url);
+  } else {
+    // remove tapped from siblings
+    document.querySelectorAll('.photo-card.tapped').forEach(c => { if (c !== card) c.classList.remove('tapped'); });
+    card.classList.add('tapped');
+  }
+};
+// close tapped on outside click
+document.addEventListener('click', e => {
+  if (!e.target.closest('.photo-card')) {
+    document.querySelectorAll('.photo-card.tapped').forEach(c => c.classList.remove('tapped'));
+  }
+});
+
+/* ── MODAL ───────────────────────────────────── */
 window.openModal = function(url) { document.getElementById('modal-img').src = url; document.getElementById('modal').classList.add('open'); };
 window.closeModal = function(e) { if (e.target.id === 'modal') document.getElementById('modal').classList.remove('open'); };
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { document.getElementById('modal').classList.remove('open'); closeAdmin(); } });
 
-// ── ADMIN ─────────────────────────────────────
+/* ── ADMIN ───────────────────────────────────── */
 window.openAdmin = function() {
   document.getElementById('admin-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
   if (!currentUser) { document.getElementById('admin-login-screen').style.display = 'block'; document.getElementById('admin-dashboard').style.display = 'none'; }
 };
-window.closeAdmin = function() { document.getElementById('admin-overlay').classList.remove('open'); };
+window.closeAdmin = function() {
+  document.getElementById('admin-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+};
 
 window.showTab = function(name) {
   document.querySelectorAll('.a-pane').forEach(p => p.classList.remove('active'));
@@ -527,16 +960,23 @@ window.showTab = function(name) {
   if (name === 'categorias') loadAdminCats();
 };
 
-// ── UPLOAD ────────────────────────────────────
+/* ── UPLOAD ──────────────────────────────────── */
 const dropzone  = document.getElementById('dropzone');
 const fileInput = document.getElementById('file-input');
-dropzone.addEventListener('click', () => fileInput.click());
+dropzone.addEventListener('click', () => {
+  if (isMobile()) return; // mobile uses explicit buttons below
+  fileInput.click();
+});
 fileInput.addEventListener('change', e => addToQueue(Array.from(e.target.files)));
 dropzone.addEventListener('dragover',  e => { e.preventDefault(); dropzone.classList.add('dz-over'); });
 dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dz-over'));
 dropzone.addEventListener('drop', e => { e.preventDefault(); dropzone.classList.remove('dz-over'); addToQueue(Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'))); });
 
-function addToQueue(files) { uploadQueue.push(...files); renderQueue(); }
+function addToQueue(files) {
+  if (!files || !files.length) return;
+  uploadQueue.push(...files);
+  renderQueue();
+}
 
 function renderQueue() {
   const queueEl = document.getElementById('upload-queue');
@@ -554,12 +994,12 @@ window.uploadAll = async function() {
   for (let i = 0; i < uploadQueue.length; i++) {
     const f = uploadQueue[i];
     const st = document.getElementById('fstatus-'+i);
-    st.textContent = '⬆️';
+    if (st) st.textContent = '⬆️';
     try {
       const { url, thumb, publicId } = await uploadToCloudinary(f);
       await addDoc(collection(db, 'fotos'), { url, thumb, publicId, descricao: '', categoria: '', status: 'pendente', created_at: new Date().toISOString() });
-      st.textContent = '✅'; ok++;
-    } catch (e) { console.error(e); st.textContent = '❌'; }
+      if (st) st.textContent = '✅'; ok++;
+    } catch (e) { console.error(e); if (st) st.textContent = '❌'; }
   }
   toast(`${ok} de ${uploadQueue.length} foto(s) enviada(s)!`, ok > 0 ? 'success' : 'error');
   uploadQueue = [];
@@ -567,18 +1007,16 @@ window.uploadAll = async function() {
   btn.disabled = false;
 };
 
-// ── PENDENTES ─────────────────────────────────
+/* ── PENDENTES ───────────────────────────────── */
 async function loadPendentesBadge() {
   try { const f = await getFotosByStatus('pendente'); pendentesCount = f.length; updateBadge(); } catch (_) {}
 }
-
 function updateBadge() {
   const b = document.getElementById('badge-pendentes');
   if (!b) return;
   b.textContent = pendentesCount;
   b.style.display = pendentesCount > 0 ? 'inline-flex' : 'none';
 }
-
 async function loadPendentes() {
   const grid = document.getElementById('pendentes-grid');
   grid.innerHTML = '<p class="a-loading">Carregando...</p>';
@@ -591,7 +1029,7 @@ async function loadPendentes() {
       <div class="pending-card" id="pc-${f.id}">
         <img class="pending-thumb" src="${f.thumb||f.url}" alt="Pendente" onerror="this.style.background='var(--blush-light)'">
         <div class="pending-form">
-          <input type="text" id="desc-${f.id}" placeholder="Descrição da foto...">
+          <input type="text" id="desc-${f.id}" placeholder="Descrição da foto..." autocomplete="off">
           <select id="cat-${f.id}"><option value="">Escolha a categoria</option>${opts}</select>
           <div class="pending-actions">
             <button class="btn-publicar" onclick="publicarFoto('${f.id}')">✅ Publicar</button>
@@ -613,7 +1051,6 @@ window.publicarFoto = async function(id) {
     toast('Foto publicada! ✅', 'success'); carregarFotos();
   } catch (e) { toast('Erro ao publicar', 'error'); }
 };
-
 window.descartarFoto = async function(id) {
   if (!confirm('Descartar esta foto?')) return;
   try {
@@ -624,7 +1061,7 @@ window.descartarFoto = async function(id) {
   } catch (e) { toast('Erro ao descartar', 'error'); }
 };
 
-// ── PUBLICADAS ────────────────────────────────
+/* ── PUBLICADAS ──────────────────────────────── */
 async function loadPublicadas() {
   const grid = document.getElementById('publicadas-grid');
   grid.innerHTML = '<p class="a-loading">Carregando...</p>';
@@ -642,7 +1079,6 @@ async function loadPublicadas() {
       </div>`).join('');
   } catch (_) { grid.innerHTML = '<p class="a-empty">Erro ao carregar.</p>'; }
 }
-
 window.excluirFoto = async function(id) {
   if (!confirm('Excluir esta foto permanentemente?')) return;
   try {
@@ -652,7 +1088,7 @@ window.excluirFoto = async function(id) {
   } catch (e) { toast('Erro ao excluir', 'error'); }
 };
 
-// ── SITE CONFIG ───────────────────────────────
+/* ── SITE CONFIG ─────────────────────────────── */
 const CONFIG_FIELDS = [
   { key: 'site_nome',        label: 'Nome do Site',                              type: 'text' },
   { key: 'hero_titulo',      label: 'Título Principal (aceita &lt;em&gt;italico&lt;/em&gt;)', type: 'text' },
@@ -664,7 +1100,6 @@ const CONFIG_FIELDS = [
   { key: 'email',            label: 'E-mail de contato',                         type: 'email' },
   { key: 'instagram',        label: 'Instagram (sem @)',                          type: 'text' },
 ];
-
 function renderSiteConfig() {
   document.getElementById('site-config-form').innerHTML = CONFIG_FIELDS.map(f => `
     <div class="cfg-group">
@@ -675,7 +1110,6 @@ function renderSiteConfig() {
       </div>
     </div>`).join('');
 }
-
 window.saveConfig = async function(chave) {
   const valor = document.getElementById('cfg-'+chave).value;
   try {
@@ -685,18 +1119,16 @@ window.saveConfig = async function(chave) {
   } catch (e) { toast('Erro ao salvar', 'error'); }
 };
 
-// ── CATEGORIAS ────────────────────────────────
+/* ── CATEGORIAS ──────────────────────────────── */
 async function loadAdminCats() {
   try { catsList = await getCategorias(); renderAdminCats(); }
   catch (_) { toast('Erro ao carregar categorias', 'error'); }
 }
-
 function renderAdminCats() {
   const el = document.getElementById('admin-cats-list');
   if (!catsList.length) { el.innerHTML = '<p class="a-empty">Sem categorias. Adicione abaixo.</p>'; return; }
-  el.innerHTML = catsList.map(c => `<div class="cat-admin-item"><span class="cat-admin-emoji">${c.emoji}</span><span class="cat-admin-nome">${c.nome}</span><button class="btn-del-cat" onclick="delCat('${c.id}')">🗑️ Excluir</button></div>`).join('');
+  el.innerHTML = catsList.map(c => `<div class="cat-admin-item"><span class="cat-admin-emoji">${c.emoji}</span><span class="cat-admin-nome">${c.nome}</span><button class="btn-del-cat" onclick="delCat('${c.id}')">🗑️</button></div>`).join('');
 }
-
 window.addCat = async function() {
   const emoji = document.getElementById('new-cat-emoji').value.trim() || '✨';
   const nome  = document.getElementById('new-cat-nome').value.trim();
@@ -709,7 +1141,6 @@ window.addCat = async function() {
     toast('Categoria adicionada! ✅', 'success'); carregarFotos();
   } catch (e) { toast('Erro ao adicionar categoria', 'error'); }
 };
-
 window.delCat = async function(id) {
   if (!confirm('Excluir esta categoria?')) return;
   try {
@@ -719,7 +1150,7 @@ window.delCat = async function(id) {
   } catch (e) { toast('Erro ao excluir categoria', 'error'); }
 };
 
-// ── UTILS ─────────────────────────────────────
+/* ── UTILS ───────────────────────────────────── */
 window.toast = function(msg, type) {
   const el = document.createElement('div');
   el.className = 'toast' + (type ? ' t-'+type : '');
@@ -727,10 +1158,9 @@ window.toast = function(msg, type) {
   document.body.appendChild(el);
   requestAnimationFrame(() => { el.classList.add('show'); setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 350); }, 3200); });
 };
-
 function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-// ── FLOATING EMOJIS ───────────────────────────
+/* ── FLOATING EMOJIS ─────────────────────────── */
 (function() {
   const EMOJIS = ['✏️','📖','📝','🎂','🎀','🎁','🖊️','📚','🌸','🎊','🎉','🍰','✨','💕','🎈','🖍️','📓','💝','🌷','🎗️','🎪','🌺'];
   const bg = document.getElementById('floating-bg');
@@ -747,9 +1177,13 @@ function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replac
   setInterval(spawn, 1100);
 })();
 
-window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); }, { passive: true });
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+}, { passive: true });
 
-const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }); }, { threshold: 0.12 });
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.12 });
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
 carregarConfig();
