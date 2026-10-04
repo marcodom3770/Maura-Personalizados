@@ -164,12 +164,23 @@
     .btn-descartar:hover { background: #fff0f0; }
 
     .pub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
-    .pub-card { background: white; border: 1.5px solid var(--blush); border-radius: 12px; overflow: hidden; }
+    .pub-card { background: white; border: 1.5px solid var(--blush); border-radius: 12px; overflow: hidden; transition: border-color 0.2s; }
+    .pub-card.editing { border-color: var(--rose); }
     .pub-card img { width: 100%; height: 160px; object-fit: cover; display: block; }
     .pub-info { padding: 12px; } .pub-cat { font-size: 0.75rem; font-weight: 600; color: var(--rose); background: var(--blush-light); padding: 3px 10px; border-radius: 50px; display: inline-block; margin-bottom: 6px; }
     .pub-desc { font-size: 0.85rem; color: var(--text-dark); margin-bottom: 10px; line-height: 1.4; }
-    .btn-del-pub { width: 100%; background: #fff0f0; border: 1px solid #f8c8c8; color: #c94f4f; border-radius: 7px; padding: 7px; font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; transition: background 0.2s; }
+    .pub-actions { display: flex; gap: 6px; }
+    .btn-edit-pub { flex: 1; background: var(--blush-light); border: 1px solid var(--blush); color: var(--deep-rose); border-radius: 7px; padding: 7px; font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; transition: background 0.2s; }
+    .btn-edit-pub:hover { background: var(--blush); }
+    .btn-del-pub { flex: 1; background: #fff0f0; border: 1px solid #f8c8c8; color: #c94f4f; border-radius: 7px; padding: 7px; font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; transition: background 0.2s; }
     .btn-del-pub:hover { background: #ffe0e0; }
+    .pub-edit-form { display: none; padding: 12px; border-top: 1.5px solid var(--blush-light); background: #fff8fa; flex-direction: column; gap: 8px; }
+    .pub-edit-form.open { display: flex; }
+    .pub-edit-form input, .pub-edit-form select { width: 100%; padding: 9px 12px; border: 1.5px solid var(--blush); border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 0.85rem; outline: none; transition: border-color 0.2s; background: white; }
+    .pub-edit-form input:focus, .pub-edit-form select:focus { border-color: var(--rose); }
+    .btn-salvar-edicao { background: linear-gradient(135deg, var(--rose), var(--deep-rose)); color: white; border: none; border-radius: 8px; padding: 9px; font-family: 'Poppins', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
+    .btn-salvar-edicao:hover { opacity: 0.88; }
+    .btn-cancelar-edicao { background: white; border: 1.5px solid #e0d0d8; color: var(--text-mid); border-radius: 8px; padding: 9px; font-family: 'Poppins', sans-serif; font-size: 0.85rem; cursor: pointer; }
 
     .config-form { display: flex; flex-direction: column; gap: 18px; max-width: 600px; }
     .cfg-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-mid); margin-bottom: 6px; }
@@ -481,7 +492,10 @@
       .pub-card img { height: 130px; }
       .pub-info { padding: 10px; }
       .pub-desc { font-size: 0.8rem; }
-      .btn-del-pub { padding: 8px; font-size: 0.8rem; border-radius: 8px; }
+      .btn-del-pub, .btn-edit-pub { padding: 8px 4px; font-size: 0.78rem; border-radius: 8px; }
+      .pub-edit-form { padding: 10px; gap: 10px; }
+      .pub-edit-form input, .pub-edit-form select { padding: 11px 12px; font-size: 0.9rem; border-radius: 10px; }
+      .btn-salvar-edicao, .btn-cancelar-edicao { padding: 12px; font-size: 0.9rem; border-radius: 10px; }
 
       /* CONFIG — mobile */
       .cfg-row { flex-direction: column; gap: 8px; }
@@ -669,7 +683,7 @@
         <!-- PENDENTES -->
         <div class="a-pane" id="tab-pendentes">
           <h3 class="a-section-title">Fotos Pendentes</h3>
-          <p class="a-section-desc">Preencha a descrição e a categoria e toque em Publicar.</p>
+          <p class="a-section-desc">Escolha a categoria (obrigatório) e, se quiser, adicione uma descrição. Depois toque em Publicar.</p>
           <div class="pending-grid" id="pendentes-grid"><p class="a-loading">Carregando...</p></div>
         </div>
         <!-- PUBLICADAS -->
@@ -1029,7 +1043,7 @@ async function loadPendentes() {
       <div class="pending-card" id="pc-${f.id}">
         <img class="pending-thumb" src="${f.thumb||f.url}" alt="Pendente" onerror="this.style.background='var(--blush-light)'">
         <div class="pending-form">
-          <input type="text" id="desc-${f.id}" placeholder="Descrição da foto..." autocomplete="off">
+          <input type="text" id="desc-${f.id}" placeholder="Descrição (opcional)" autocomplete="off">
           <select id="cat-${f.id}"><option value="">Escolha a categoria</option>${opts}</select>
           <div class="pending-actions">
             <button class="btn-publicar" onclick="publicarFoto('${f.id}')">✅ Publicar</button>
@@ -1043,7 +1057,7 @@ async function loadPendentes() {
 window.publicarFoto = async function(id) {
   const desc = document.getElementById('desc-'+id)?.value.trim();
   const cat  = document.getElementById('cat-'+id)?.value;
-  if (!desc || !cat) { toast('Preencha descrição e categoria', 'error'); return; }
+  if (!cat) { toast('Escolha uma categoria', 'error'); return; }
   try {
     await updateDoc(doc(db, 'fotos', id), { descricao: desc, categoria: cat, status: 'publicada' });
     document.getElementById('pc-'+id)?.remove();
@@ -1066,19 +1080,60 @@ async function loadPublicadas() {
   const grid = document.getElementById('publicadas-grid');
   grid.innerHTML = '<p class="a-loading">Carregando...</p>';
   try {
-    const fotos = await getFotosByStatus('publicada');
+    const [fotos, cats] = await Promise.all([getFotosByStatus('publicada'), getCategorias()]);
+    catsList = cats;
     if (!fotos.length) { grid.innerHTML = '<p class="a-empty">Nenhuma foto publicada ainda.</p>'; return; }
+    const opts = cats.map(c => `<option value="${c.nome}">${c.emoji} ${c.nome}</option>`).join('');
     grid.innerHTML = fotos.map(f => `
       <div class="pub-card" id="pub-${f.id}">
-        <img src="${f.thumb||f.url}" alt="${f.descricao}" onerror="this.style.background='var(--blush-light)'">
+        <img src="${f.thumb||f.url}" alt="${f.descricao||''}" onerror="this.style.background='var(--blush-light)'">
         <div class="pub-info">
-          <span class="pub-cat">${f.categoria}</span>
-          <p class="pub-desc">${f.descricao}</p>
-          <button class="btn-del-pub" onclick="excluirFoto('${f.id}')">🗑️ Excluir</button>
+          <span class="pub-cat" id="pub-cat-label-${f.id}">${f.categoria}</span>
+          <p class="pub-desc" id="pub-desc-label-${f.id}">${f.descricao||'<em style="color:var(--text-light);font-size:0.8rem">sem descrição</em>'}</p>
+          <div class="pub-actions">
+            <button class="btn-edit-pub" onclick="toggleEditPub('${f.id}')">✏️ Editar</button>
+            <button class="btn-del-pub"  onclick="excluirFoto('${f.id}')">🗑️</button>
+          </div>
+        </div>
+        <div class="pub-edit-form" id="pub-edit-${f.id}">
+          <input type="text" id="pub-edit-desc-${f.id}" placeholder="Descrição (opcional)" value="${escHtml(f.descricao||'')}">
+          <select id="pub-edit-cat-${f.id}">
+            <option value="">Sem categoria</option>
+            ${opts.replace(`value="${f.categoria}"`, `value="${f.categoria}" selected`)}
+          </select>
+          <div style="display:flex;gap:8px">
+            <button class="btn-salvar-edicao" style="flex:1" onclick="salvarEdicao('${f.id}')">💾 Salvar</button>
+            <button class="btn-cancelar-edicao" onclick="toggleEditPub('${f.id}')">✕</button>
+          </div>
         </div>
       </div>`).join('');
   } catch (_) { grid.innerHTML = '<p class="a-empty">Erro ao carregar.</p>'; }
 }
+
+window.toggleEditPub = function(id) {
+  const card = document.getElementById('pub-'+id);
+  const form = document.getElementById('pub-edit-'+id);
+  const open = form.classList.toggle('open');
+  card.classList.toggle('editing', open);
+  if (open) document.getElementById('pub-edit-desc-'+id)?.focus();
+};
+
+window.salvarEdicao = async function(id) {
+  const desc = document.getElementById('pub-edit-desc-'+id)?.value.trim();
+  const cat  = document.getElementById('pub-edit-cat-'+id)?.value;
+  if (!cat) { toast('Escolha uma categoria', 'error'); return; }
+  try {
+    await updateDoc(doc(db, 'fotos', id), { descricao: desc, categoria: cat });
+    // update labels inline without full reload
+    const labelDesc = document.getElementById('pub-desc-label-'+id);
+    const labelCat  = document.getElementById('pub-cat-label-'+id);
+    if (labelDesc) labelDesc.innerHTML = desc || '<em style="color:var(--text-light);font-size:0.8rem">sem descrição</em>';
+    if (labelCat)  labelCat.textContent = cat;
+    toggleEditPub(id);
+    toast('Salvo! ✅', 'success');
+    carregarFotos(); // refresh public gallery
+  } catch (e) { toast('Erro ao salvar', 'error'); }
+};
 window.excluirFoto = async function(id) {
   if (!confirm('Excluir esta foto permanentemente?')) return;
   try {
